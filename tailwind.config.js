@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'skc-purple': '#D8B4E2', // light purple
+        'skc-purple': '#c77dff', // stronger purple
         'skc-white': '#FFFFFF',
         'skc-gold': '#FFD700', // gold for libra
       }

@@ -3,12 +3,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAt6sKXrnU8d3tzClUIFBLLzETYM-lFYc4",
-  authDomain: "bodega-skc.firebaseapp.com",
-  projectId: "bodega-skc",
-  storageBucket: "bodega-skc.firebasestorage.app",
-  messagingSenderId: "522402556850",
-  appId: "1:522402556850:web:2b30a40e23f0482211d2ab"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase

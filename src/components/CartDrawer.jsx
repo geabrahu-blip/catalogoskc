@@ -12,15 +12,16 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
   const handleCheckout = () => {
     if (cartItems.length === 0) return;
 
-    let message = `¡Hola Victoria's Shop! Quisiera realizar el siguiente pedido:%0A%0A`;
+    let rawMessage = `¡Hola Victoria's Shop! Quisiera realizar el siguiente pedido:\n\n`;
 
     cartItems.forEach(item => {
       const price = item.sellingPrice || item.priceBs || 0;
-      message += `- ${item.quantity}x ${item.name} (Bs. ${price} c/u) = Bs. ${price * item.quantity}%0A`;
+      rawMessage += `- ${item.quantity}x ${item.name} (Bs. ${price} c/u) = Bs. ${price * item.quantity}\n`;
     });
 
-    message += `%0A*Total: Bs. ${total}*%0A%0AQuedo atento/a para coordinar la entrega y el pago. ¡Gracias!`;
+    rawMessage += `\n*Total: Bs. ${total}*\n\nQuedo atento/a para coordinar la entrega y el pago. ¡Gracias!`;
 
+    const message = encodeURIComponent(rawMessage);
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
     window.open(whatsappUrl, '_blank');
   };
