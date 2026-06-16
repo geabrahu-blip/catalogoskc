@@ -5,8 +5,26 @@ export default function ProductCard({ product, onAddToCart }) {
   // Use a fallback image if image is empty or missing
   const imageUrl = product.image || 'https://via.placeholder.com/300x300?text=Sin+Imagen';
 
+  // Validar si existe descuento y si el precio de comparación es mayor al de venta
+  const hasDiscount = product.comparePrice && product.comparePrice > product.sellingPrice;
+
+  // Calcular el porcentaje de descuento redondeado
+  const discountPercentage = hasDiscount
+    ? Math.round(((product.comparePrice - product.sellingPrice) / product.comparePrice) * 100)
+    : 0;
+
+  const currentPrice = product.sellingPrice || product.priceBs || 0;
+
   return (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full border border-gray-100">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full border border-gray-100 relative">
+
+      {/* Badge de Oferta superpuesto en la imagen */}
+      {hasDiscount && (
+        <div className="absolute top-3 left-3 z-10 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md flex items-center gap-1">
+          🔥 -{discountPercentage}%
+        </div>
+      )}
+
       <div className="relative w-full pt-[100%] bg-white">
         <img
           src={imageUrl}
@@ -24,10 +42,23 @@ export default function ProductCard({ product, onAddToCart }) {
 
         <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-50">
           <div className="flex flex-col">
-            <span className="text-xs text-gray-500">Precio</span>
-            <span className="text-xl font-bold text-skc-purple">
-              Bs. {product.sellingPrice || product.priceBs || 0}
-            </span>
+            {hasDiscount ? (
+              // Mostrar precio antiguo tachado y nuevo precio destacado si hay descuento
+              <>
+                <span className="text-xs text-gray-400 line-through">Bs. {product.comparePrice}</span>
+                <span className="text-xl font-bold text-emerald-600">
+                  Bs. {currentPrice}
+                </span>
+              </>
+            ) : (
+              // Mostrar vista normal de precio si no hay descuento
+              <>
+                <span className="text-xs text-gray-500">Precio</span>
+                <span className="text-xl font-bold text-skc-purple">
+                  Bs. {currentPrice}
+                </span>
+              </>
+            )}
           </div>
 
           <button
