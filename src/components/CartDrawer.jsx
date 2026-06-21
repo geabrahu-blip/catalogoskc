@@ -5,7 +5,9 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
   const WHATSAPP_NUMBER = "59163144471";
 
   const total = cartItems.reduce((acc, item) => {
-    const price = item.sellingPrice || item.priceBs || 0;
+    const sellingPriceNum = Number(item.sellingPrice) || 0;
+    const priceBsNum = Number(item.priceBs) || 0;
+    const price = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
     return acc + (price * item.quantity);
   }, 0);
 
@@ -15,7 +17,9 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
     let rawMessage = `¡Hola Victoria's Shop! Quisiera realizar el siguiente pedido:\n\n`;
 
     cartItems.forEach(item => {
-      const price = item.sellingPrice || item.priceBs || 0;
+      const sellingPriceNum = Number(item.sellingPrice) || 0;
+      const priceBsNum = Number(item.priceBs) || 0;
+      const price = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
       rawMessage += `- ${item.quantity}x ${item.name} (Bs. ${price} c/u) = Bs. ${price * item.quantity}\n`;
     });
 
@@ -60,7 +64,9 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
             </div>
           ) : (
             cartItems.map(item => {
-              const price = item.sellingPrice || item.priceBs || 0;
+              const sellingPriceNum = Number(item.sellingPrice) || 0;
+              const priceBsNum = Number(item.priceBs) || 0;
+              const price = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
               return (
                 <div key={item.id} className="flex gap-4 p-3 bg-gray-50 rounded-lg border border-gray-100">
                   <div className="w-20 h-20 bg-white rounded-md flex-shrink-0 flex items-center justify-center overflow-hidden">

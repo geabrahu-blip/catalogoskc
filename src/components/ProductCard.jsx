@@ -5,15 +5,20 @@ export default function ProductCard({ product, onAddToCart }) {
   // Use a fallback image if image is empty or missing
   const imageUrl = product.image || 'https://via.placeholder.com/300x300?text=Sin+Imagen';
 
+  // Convertir los precios a números para evitar problemas con datos antiguos guardados como texto
+  const comparePriceNum = Number(product.comparePrice) || 0;
+  const sellingPriceNum = Number(product.sellingPrice) || 0;
+  const priceBsNum = Number(product.priceBs) || 0;
+
   // Validar si existe descuento y si el precio de comparación es mayor al de venta
-  const hasDiscount = product.comparePrice && product.comparePrice > product.sellingPrice;
+  const hasDiscount = comparePriceNum > 0 && comparePriceNum > sellingPriceNum;
 
   // Calcular el porcentaje de descuento redondeado
   const discountPercentage = hasDiscount
-    ? Math.round(((product.comparePrice - product.sellingPrice) / product.comparePrice) * 100)
+    ? Math.round(((comparePriceNum - sellingPriceNum) / comparePriceNum) * 100)
     : 0;
 
-  const currentPrice = product.sellingPrice || product.priceBs || 0;
+  const currentPrice = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
 
   return (
     <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full border border-gray-100 relative">
@@ -45,7 +50,7 @@ export default function ProductCard({ product, onAddToCart }) {
             {hasDiscount ? (
               // Mostrar precio antiguo tachado y nuevo precio destacado si hay descuento
               <>
-                <span className="text-xs text-gray-400 line-through">Bs. {product.comparePrice}</span>
+                <span className="text-xs text-gray-400 line-through">Bs. {comparePriceNum}</span>
                 <span className="text-xl font-bold text-emerald-600">
                   Bs. {currentPrice}
                 </span>
