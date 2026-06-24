@@ -85,7 +85,7 @@ export default function ProductCard({ product, onAddToCart }) {
               </>
             ) : (
               <>
-                <span className="text-[26px] font-black text-gray-900 leading-none mt-1">
+                <span className="text-[26px] font-black text-skc-purple leading-none mt-1">
                   Bs. {currentPrice.toFixed(2)}
                 </span>
               </>
@@ -94,7 +94,7 @@ export default function ProductCard({ product, onAddToCart }) {
 
           <button
             onClick={() => onAddToCart(product)}
-            className="bg-gray-900 hover:bg-gray-800 text-white w-12 h-12 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50 shadow-md flex-shrink-0"
+            className="bg-skc-purple hover:bg-opacity-90 text-white w-12 h-12 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-purple focus:ring-opacity-50 shadow-md flex-shrink-0"
             aria-label={`Añadir ${product.name} al carrito`}
           >
             <FaCartPlus className="text-xl" />
