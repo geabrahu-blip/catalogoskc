@@ -3,6 +3,7 @@ on:
   pull_request:
     branches:
       - main
+      - feat/victoria-shop-catalog-750572929540431390
 
 jobs:
   build_and_preview:

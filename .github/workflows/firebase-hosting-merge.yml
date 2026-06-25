@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - feat/victoria-shop-catalog-750572929540431390
   workflow_dispatch:
 
 jobs:
