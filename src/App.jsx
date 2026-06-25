@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import ProductCard from './components/ProductCard';
+import ProductSkeleton from './components/ProductSkeleton';
 import CartDrawer from './components/CartDrawer';
 import FindUs from './components/FindUs';
 import { db } from './firebase';
@@ -14,6 +15,9 @@ function App() {
 
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  // Pagination states
+  const [visibleCount, setVisibleCount] = useState(20);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -64,6 +68,14 @@ function App() {
     setCartItems(prev => prev.filter(item => item.id !== id));
   };
 
+  // When searchTerm changes, we want to reset visibleCount to 20, but doing it in useEffect causes a warning.
+  // Instead of an effect, we can derive the visible products directly by noticing when the search term changes.
+  // We'll manage search term here and reset visibleCount synchronously when it changes.
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setVisibleCount(20);
+  };
+
   const filteredProducts = products.filter(product => {
     if (!searchTerm) return true;
     const searchLower = searchTerm.toLowerCase();
@@ -72,6 +84,12 @@ function App() {
     const categoryMatch = product.category?.toLowerCase().includes(searchLower);
     return nameMatch || brandMatch || categoryMatch;
   });
+
+  const visibleProducts = filteredProducts.slice(0, visibleCount);
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 20);
+  };
 
   const cartItemCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -100,26 +118,41 @@ function App() {
               placeholder="Buscar productos, marcas o categorías..."
               className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-skc-purple focus:border-transparent text-gray-700 bg-white"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={handleSearchChange}
             />
           </div>
         </div>
 
         {/* Product Grid */}
         {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-skc-purple"></div>
-          </div>
-        ) : filteredProducts.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-            {filteredProducts.map(product => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onAddToCart={handleAddToCart}
-              />
+            {[...Array(10)].map((_, i) => (
+              <ProductSkeleton key={i} />
             ))}
           </div>
+        ) : filteredProducts.length > 0 ? (
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+              {visibleProducts.map(product => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                />
+              ))}
+            </div>
+
+            {visibleCount < filteredProducts.length && (
+              <div className="mt-10 flex justify-center">
+                <button
+                  onClick={handleLoadMore}
+                  className="bg-white border-2 border-skc-purple text-skc-purple hover:bg-skc-purple hover:text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-sm"
+                >
+                  Ver más productos
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center py-20 text-gray-500 bg-white rounded-xl shadow-sm border border-gray-100">
             <p className="text-xl mb-2">No encontramos productos.</p>
