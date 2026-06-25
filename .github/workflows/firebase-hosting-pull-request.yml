@@ -5,6 +5,11 @@ on:
       - main
       - feat/victoria-shop-catalog-750572929540431390
 
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+
 jobs:
   build_and_preview:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
@@ -37,4 +42,3 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BODEGA_SKC }}
           projectId: bodega-skc
-          target: catalogoskc
