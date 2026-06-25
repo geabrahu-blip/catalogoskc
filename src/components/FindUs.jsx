@@ -48,7 +48,7 @@ export default function FindUs() {
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="w-full lg:w-1/2">
             <img
-              src="/sucursal-norte.jpeg"
+              src="/sucursal-norte-v2.jpg"
               alt="Victoria's Shop - Sucursal Norte"
               className="w-full h-64 lg:h-full object-cover rounded-xl"
             />
