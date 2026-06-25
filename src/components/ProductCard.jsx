@@ -21,17 +21,17 @@ export default function ProductCard({ product, onAddToCart }) {
   const currentPrice = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
 
   return (
-    <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.05)] overflow-hidden hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300 flex flex-col h-full border border-gray-100 relative p-3">
+    <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300 flex flex-col h-full border border-gray-100 relative p-3 mt-3">
+
+      {/* Badge de Oferta desplazado hacia arriba y con animación */}
+      {hasDiscount && (
+        <div className="absolute -top-3 right-3 z-20 animate-pulse bg-red-500 text-white text-[11px] font-black px-3 py-1.5 rounded-full shadow-md tracking-wide">
+          -{discountPercentage}% OFERTA
+        </div>
+      )}
 
       {/* Imagen con contenedor que simula el fondo de la imagen de referencia */}
-      <div className="relative w-full aspect-square rounded-2xl bg-gray-50 overflow-hidden flex items-center justify-center">
-        {/* Badge de Oferta superpuesto en la imagen */}
-        {hasDiscount && (
-          <div className="absolute top-3 right-3 z-10 bg-red-500 text-white text-[11px] font-black px-3 py-1.5 rounded-full shadow-sm tracking-wide">
-            -{discountPercentage}% OFERTA
-          </div>
-        )}
-
+      <div className="relative w-full aspect-square rounded-2xl bg-gray-50 overflow-hidden flex items-center justify-center mt-1">
         <img
           src={imageUrl}
           alt={product.name}
