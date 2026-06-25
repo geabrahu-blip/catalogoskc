@@ -24,26 +24,13 @@ export default function FindUs() {
           <div className="w-full lg:w-1/2 flex flex-col space-y-4">
             <h3 className="text-xl font-bold text-gray-800">Sucursal Centro</h3>
 
-            <div className="flex items-start gap-3 text-gray-700">
-              <FaClock className="mt-1 text-skc-purple" />
+            <div className="flex items-start gap-3 text-skc-purple bg-skc-purple/10 p-4 rounded-xl border border-skc-purple/20">
+              <FaClock className="mt-1 text-xl" />
               <div>
-                <p className="font-semibold">Horarios de Atención</p>
-                <p className="text-sm">Lunes a Sábado: 09:30 - 19:30</p>
-                <p className="text-sm">Domingo: Cerrado</p>
+                <p className="font-bold text-lg">Horarios de Atención</p>
+                <p className="text-base font-semibold">Lunes a Sábado: 09:30 - 19:30</p>
+                <p className="text-base font-semibold">Domingo: Cerrado</p>
               </div>
-            </div>
-
-            <div className="flex-1 rounded-xl overflow-hidden border border-gray-200 min-h-[200px]">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15228.675713437142!2d-63.1901842!3d-17.7831518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93f1e81b672727dd%3A0xc540306733ecab!2sVictoria&#39;s%20Shop!5e0!3m2!1ses-419!2sbo!4v1713460000000!5m2!1ses-419!2sbo"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Ubicación Sucursal Centro"
-              ></iframe>
             </div>
 
             <a
@@ -69,26 +56,13 @@ export default function FindUs() {
           <div className="w-full lg:w-1/2 flex flex-col space-y-4">
             <h3 className="text-xl font-bold text-gray-800">Sucursal Norte</h3>
 
-            <div className="flex items-start gap-3 text-gray-700">
-              <FaClock className="mt-1 text-skc-purple" />
+            <div className="flex items-start gap-3 text-skc-purple bg-skc-purple/10 p-4 rounded-xl border border-skc-purple/20">
+              <FaClock className="mt-1 text-xl" />
               <div>
-                <p className="font-semibold">Horarios de Atención</p>
-                <p className="text-sm">Martes a Domingo: 09:30 - 19:30</p>
-                <p className="text-sm">Lunes: Cerrado</p>
+                <p className="font-bold text-lg">Horarios de Atención</p>
+                <p className="text-base font-semibold">Martes a Domingo: 09:30 - 19:30</p>
+                <p className="text-base font-semibold">Lunes: Cerrado</p>
               </div>
-            </div>
-
-            <div className="flex-1 rounded-xl overflow-hidden border border-gray-200 min-h-[200px]">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115286.07925186482!2d-63.25055042838396!3d-17.76011409276901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93f1e81b672727dd%3A0xc540306733ecab!2sVictoria&#39;s%20Shop!5e0!3m2!1ses-419!2sbo!4v1713460000000!5m2!1ses-419!2sbo"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen=""
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Ubicación Sucursal Norte"
-              ></iframe>
             </div>
 
             <a
