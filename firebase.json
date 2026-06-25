@@ -2,9 +2,6 @@
   "hosting": {
     "site": "catalogoskc",
     "public": "dist",
-    "predeploy": [
-      "npm run build"
-    ],
     "ignore": [
       "firebase.json",
       "**/.*",
