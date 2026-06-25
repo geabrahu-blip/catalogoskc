@@ -18,7 +18,11 @@ function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const q = query(collection(db, 'inventory'));
+
+        const q = query(collection(db, 'public_catalog'));
+
+
+
         const querySnapshot = await getDocs(q);
 
         const productsList = querySnapshot.docs.map(doc => ({
