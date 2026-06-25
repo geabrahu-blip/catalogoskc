@@ -50,25 +50,18 @@ export default function ProductCard({ product, onAddToCart }) {
         </h3>
 
         {/* Pastillas de Categoría / Presentación */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {product.presentation && (
-            <span className="text-[11px] font-semibold text-gray-600 bg-gray-50 border border-gray-100 px-3 py-1 rounded-lg">
+            <span className="text-[10px] font-semibold text-gray-600 bg-gray-100 border border-gray-200 px-2.5 py-0.5 rounded-full">
               {product.presentation}
             </span>
           )}
           {product.category && (
-            <span className="text-[11px] font-semibold text-gray-600 bg-gray-50 border border-gray-100 px-3 py-1 rounded-lg">
+            <span className="text-[10px] font-semibold text-gray-600 bg-gray-100 border border-gray-200 px-2.5 py-0.5 rounded-full">
               {product.category}
             </span>
           )}
         </div>
-
-        {/* Separador tipo presentación principal opcional (centrado) */}
-        {product.presentation && (
-          <div className="w-full text-center py-2 mb-5 border border-gray-100 rounded-xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
-            <span className="text-[13px] font-black text-gray-800">{product.presentation}</span>
-          </div>
-        )}
 
         {/* Contenedor Inferior: Precio y Botón */}
         <div className="flex items-end justify-between mt-auto">
