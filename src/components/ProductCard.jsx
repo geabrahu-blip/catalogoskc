@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaCartPlus } from 'react-icons/fa';
 
-export default function ProductCard({ product, onAddToCart }) {
+export default function ProductCard({ product, onAddToCart, onViewDetails }) {
   // Use a fallback image if image is empty or missing
   const imageUrl = product.image || 'https://via.placeholder.com/300x300?text=Sin+Imagen';
 
@@ -30,41 +30,48 @@ export default function ProductCard({ product, onAddToCart }) {
         </div>
       )}
 
-      {/* Imagen con contenedor que simula el fondo de la imagen de referencia */}
-      <div className="relative w-full aspect-square rounded-2xl bg-gray-50 overflow-hidden flex items-center justify-center mt-1">
-        <img
-          src={imageUrl}
-          alt={product.name}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
-      </div>
-
-      <div className="p-2 pt-5 flex flex-col flex-grow">
-        {/* Marca */}
-        <p className="text-[11px] font-bold text-[#D4AF37] mb-1 uppercase tracking-wider">{product.brand}</p>
-
-        {/* Título */}
-        <h3 className="text-[14px] leading-tight font-bold text-gray-900 mb-3 flex-grow line-clamp-3">
-          {product.name}
-        </h3>
-
-        {/* Pastillas de Categoría / Presentación */}
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {product.presentation && (
-            <span className="text-[10px] font-semibold text-gray-600 bg-gray-100 border border-gray-200 px-2.5 py-0.5 rounded-full">
-              {product.presentation}
-            </span>
-          )}
-          {product.category && (
-            <span className="text-[10px] font-semibold text-gray-600 bg-gray-100 border border-gray-200 px-2.5 py-0.5 rounded-full">
-              {product.category}
-            </span>
-          )}
+      {/* Sección Clickable para Ver Detalles */}
+      <div
+        className="cursor-pointer flex-grow flex flex-col"
+        onClick={() => onViewDetails && onViewDetails(product)}
+      >
+        {/* Imagen con contenedor que simula el fondo de la imagen de referencia */}
+        <div className="relative w-full aspect-square rounded-2xl bg-gray-50 overflow-hidden flex items-center justify-center mt-1">
+          <img
+            src={imageUrl}
+            alt={product.name}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
         </div>
 
-        {/* Contenedor Inferior: Precio y Botón */}
-        <div className="flex items-end justify-between mt-auto">
+        <div className="p-2 pt-5 flex flex-col flex-grow">
+          {/* Marca */}
+          <p className="text-[11px] font-bold text-[#D4AF37] mb-1 uppercase tracking-wider">{product.brand}</p>
+
+          {/* Título */}
+          <h3 className="text-[14px] leading-tight font-bold text-gray-900 mb-3 flex-grow line-clamp-3 hover:text-skc-purple transition-colors">
+            {product.name}
+          </h3>
+
+          {/* Pastillas de Categoría / Presentación */}
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {product.presentation && (
+              <span className="text-[10px] font-semibold text-gray-600 bg-gray-100 border border-gray-200 px-2.5 py-0.5 rounded-full">
+                {product.presentation}
+              </span>
+            )}
+            {product.category && (
+              <span className="text-[10px] font-semibold text-gray-600 bg-gray-100 border border-gray-200 px-2.5 py-0.5 rounded-full">
+                {product.category}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Contenedor Inferior: Precio y Botón (No Clickable para Detalles) */}
+      <div className="px-2 pb-2 flex items-end justify-between mt-auto">
           <div className="flex flex-col">
             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">Precio</span>
             {hasDiscount ? (
@@ -86,14 +93,16 @@ export default function ProductCard({ product, onAddToCart }) {
           </div>
 
           <button
-            onClick={() => onAddToCart(product)}
+            onClick={(e) => {
+              e.stopPropagation(); // Evitar que el click en "Añadir al carrito" abra el modal
+              onAddToCart(product);
+            }}
             className="bg-skc-purple hover:bg-opacity-90 text-white w-12 h-12 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-purple focus:ring-opacity-50 shadow-md flex-shrink-0"
             aria-label={`Añadir ${product.name} al carrito`}
           >
             <FaCartPlus className="text-xl" />
           </button>
         </div>
-      </div>
     </div>
   );
 }

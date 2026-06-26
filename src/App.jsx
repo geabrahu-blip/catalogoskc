@@ -4,6 +4,7 @@ import ProductCard from './components/ProductCard';
 import ProductSkeleton from './components/ProductSkeleton';
 import CartDrawer from './components/CartDrawer';
 import FindUs from './components/FindUs';
+import ProductModal from './components/ProductModal';
 import { db } from './firebase';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { FaSearch } from 'react-icons/fa';
@@ -15,6 +16,7 @@ function App() {
 
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   // Pagination states
   const [visibleCount, setVisibleCount] = useState(20);
@@ -22,10 +24,44 @@ function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        // Check if there is an env configuration, otherwise use mocks.
+        // Vite env vars are in import.meta.env
+        const hasFirebaseConfig = import.meta.env.VITE_FIREBASE_API_KEY;
+
+        if (!hasFirebaseConfig || !db) {
+          // Si no hay DB configurada, usa mocks para testear localmente el diseño
+          console.log("Using mock products because DB is not available.");
+          setProducts([
+            {
+              id: '1',
+              name: 'Sérum Ácido Hialurónico',
+              brand: 'Mock Skincare',
+              category: 'Sérums',
+              presentation: '30 ml',
+              sellingPrice: '120.00',
+              comparePrice: '150.00',
+              image: 'https://via.placeholder.com/300x300?text=Serum',
+              skinType: 'Todo tipo de piel',
+              benefits: 'Hidratación profunda, rellena arrugas.',
+              keyIngredients: 'Ácido Hialurónico, Vitamina B5',
+              usage: 'Aplicar 2-3 gotas sobre la piel húmeda antes de cremas.',
+            },
+            {
+              id: '2',
+              name: 'Crema Hidratante Básica',
+              brand: 'Mock Skincare',
+              category: 'Cremas',
+              presentation: '50 ml',
+              sellingPrice: '80.00',
+              image: 'https://via.placeholder.com/300x300?text=Crema',
+              // Sin campos de skincare adicionales para testear renderizado condicional
+            }
+          ]);
+          setLoading(false);
+          return;
+        }
 
         const q = query(collection(db, 'public_catalog'));
-
-
 
         const querySnapshot = await getDocs(q);
 
@@ -138,6 +174,7 @@ function App() {
                   key={product.id}
                   product={product}
                   onAddToCart={handleAddToCart}
+                  onViewDetails={setSelectedProduct}
                 />
               ))}
             </div>
@@ -164,6 +201,11 @@ function App() {
         <FindUs />
 
       </main>
+
+      <ProductModal
+        product={selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+      />
     </div>
   );
 }
