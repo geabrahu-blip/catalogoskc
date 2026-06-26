@@ -13,6 +13,8 @@ function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [categories, setCategories] = useState([]);
 
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -28,10 +30,12 @@ function App() {
         // Vite env vars are in import.meta.env
         const hasFirebaseConfig = import.meta.env.VITE_FIREBASE_API_KEY;
 
+        let validProducts = [];
+
         if (!hasFirebaseConfig || !db) {
           // Si no hay DB configurada, usa mocks para testear localmente el diseño
           console.log("Using mock products because DB is not available.");
-          setProducts([
+          validProducts = [
             {
               id: '1',
               name: 'Sérum Ácido Hialurónico',
@@ -56,21 +60,23 @@ function App() {
               image: 'https://via.placeholder.com/300x300?text=Crema',
               // Sin campos de skincare adicionales para testear renderizado condicional
             }
-          ]);
-          setLoading(false);
-          return;
+          ];
+        } else {
+          const q = query(collection(db, 'public_catalog'));
+          const querySnapshot = await getDocs(q);
+          const productsList = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          }));
+          validProducts = productsList.filter(p => p.name);
         }
 
-        const q = query(collection(db, 'public_catalog'));
+        setProducts(validProducts);
 
-        const querySnapshot = await getDocs(q);
+        // Extract unique categories
+        const uniqueCategories = [...new Set(validProducts.map(p => p.category).filter(Boolean))];
+        setCategories(uniqueCategories.sort());
 
-        const productsList = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-
-        setProducts(productsList.filter(p => p.name));
       } catch (error) {
         console.error("Error fetching products: ", error);
       } finally {
@@ -112,7 +118,18 @@ function App() {
     setVisibleCount(20);
   };
 
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setVisibleCount(20);
+  };
+
   const filteredProducts = products.filter(product => {
+    // 1. Filter by category
+    if (selectedCategory && product.category !== selectedCategory) {
+      return false;
+    }
+
+    // 2. Filter by search term
     if (!searchTerm) return true;
     const searchLower = searchTerm.toLowerCase();
     const nameMatch = product.name?.toLowerCase().includes(searchLower);
@@ -131,7 +148,15 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-gray-800 pb-20">
-      <Header cartItemCount={cartItemCount} onCartClick={() => setIsCartOpen(true)} />
+      <Header
+        cartItemCount={cartItemCount}
+        onCartClick={() => setIsCartOpen(true)}
+        searchTerm={searchTerm}
+        onSearchChange={handleSearchChange}
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategorySelect={handleCategorySelect}
+      />
 
       <CartDrawer
         isOpen={isCartOpen}
@@ -142,22 +167,6 @@ function App() {
       />
 
       <main className="container mx-auto px-4 py-8">
-
-        {/* Search Bar */}
-        <div className="mb-8 max-w-2xl mx-auto">
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <FaSearch className="text-gray-400" />
-            </div>
-            <input
-              type="text"
-              placeholder="Buscar productos, marcas o categorías..."
-              className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-skc-purple focus:border-transparent text-gray-700 bg-white"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
-        </div>
 
         {/* Product Grid */}
         {loading ? (
