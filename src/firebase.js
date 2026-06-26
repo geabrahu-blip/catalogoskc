@@ -12,5 +12,16 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+let app;
+let db;
+
+try {
+  // Try to initialize standard Firebase if real keys exist
+  app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+} catch (e) {
+  console.warn("Firebase failed to initialize. Make sure .env exists with correct variables.", e);
+  db = null;
+}
+
+export { db };
