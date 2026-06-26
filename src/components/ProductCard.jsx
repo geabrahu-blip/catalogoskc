@@ -42,10 +42,10 @@ export default function ProductCard({ product, onAddToCart }) {
 
       <div className="p-2 pt-5 flex flex-col flex-grow">
         {/* Marca */}
-        <p className="text-[11px] font-bold text-gray-500 mb-1 uppercase tracking-wider">{product.brand}</p>
+        <p className="text-[11px] font-bold text-[#D4AF37] mb-1 uppercase tracking-wider">{product.brand}</p>
 
         {/* Título */}
-        <h3 className="text-[17px] leading-tight font-black text-gray-900 mb-3 flex-grow line-clamp-2">
+        <h3 className="text-[14px] leading-tight font-bold text-gray-900 mb-3 flex-grow line-clamp-3">
           {product.name}
         </h3>
 
