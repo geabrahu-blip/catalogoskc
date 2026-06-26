@@ -205,6 +205,7 @@ function App() {
       <ProductModal
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
+        onAddToCart={handleAddToCart}
       />
     </div>
   );

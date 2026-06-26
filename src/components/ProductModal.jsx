@@ -1,7 +1,7 @@
 import React from 'react';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaCartPlus } from 'react-icons/fa';
 
-export default function ProductModal({ product, onClose }) {
+export default function ProductModal({ product, onClose, onAddToCart }) {
   if (!product) return null;
 
   const imageUrl = product.image || 'https://via.placeholder.com/600x600?text=Sin+Imagen';
@@ -71,22 +71,35 @@ export default function ProductModal({ product, onClose }) {
             <p className="text-sm font-bold text-[#D4AF37] mb-2 uppercase tracking-wider">{product.brand}</p>
             <h2 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">{product.name}</h2>
 
-            {/* Precio */}
-            <div className="mb-6">
-              {hasDiscount ? (
-                <div className="flex flex-col">
-                  <span className="text-sm text-gray-500 line-through decoration-gray-400 decoration-1 font-medium mb-1">
-                    Bs. {comparePriceNum.toFixed(2)}
-                  </span>
-                  <span className="text-3xl font-black text-red-600 leading-none">
+            {/* Precio y Botón de Añadir */}
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                {hasDiscount ? (
+                  <div className="flex flex-col">
+                    <span className="text-sm text-gray-500 line-through decoration-gray-400 decoration-1 font-medium mb-1">
+                      Bs. {comparePriceNum.toFixed(2)}
+                    </span>
+                    <span className="text-3xl font-black text-red-600 leading-none">
+                      Bs. {currentPrice.toFixed(2)}
+                    </span>
+                  </div>
+                ) : (
+                  <span className="text-3xl font-black text-skc-purple leading-none block">
                     Bs. {currentPrice.toFixed(2)}
                   </span>
-                </div>
-              ) : (
-                <span className="text-3xl font-black text-skc-purple leading-none block">
-                  Bs. {currentPrice.toFixed(2)}
-                </span>
-              )}
+                )}
+              </div>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onAddToCart) onAddToCart(product);
+                }}
+                className="bg-skc-purple hover:bg-opacity-90 text-white w-14 h-14 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-purple focus:ring-opacity-50 shadow-md flex-shrink-0 ml-4"
+                aria-label={`Añadir ${product.name} al carrito`}
+              >
+                <FaCartPlus className="text-2xl text-[#D4AF37]" />
+              </button>
             </div>
 
             {/* Detalles Específicos Skincare (Opcionales) */}
