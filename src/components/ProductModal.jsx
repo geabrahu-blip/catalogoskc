@@ -25,7 +25,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
       ></div>
 
       {/* Modal Content */}
-      <div className="bg-white rounded-[2rem] shadow-2xl relative w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden z-10 animate-fade-in-up">
+      <div className="bg-white rounded-[2rem] shadow-2xl relative w-full max-w-2xl md:max-w-4xl max-h-[90vh] flex flex-col overflow-hidden z-10 animate-fade-in-up">
 
         {/* Header con botón cerrar */}
         <div className="absolute top-4 right-4 z-20">
@@ -51,10 +51,10 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
           </div>
 
           {/* Detalles e Información Básica */}
-          <div className="p-6 md:p-8 w-full md:w-1/2 flex flex-col">
+          <div className="p-6 md:p-6 w-full md:w-1/2 flex flex-col justify-center">
 
             {/* Categorías / Presentación */}
-            <div className="flex flex-wrap gap-2 mb-3">
+            <div className="flex flex-wrap gap-2 mb-2 md:mb-1">
               {product.presentation && (
                 <span className="text-xs font-semibold text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
                   {product.presentation}
@@ -68,15 +68,15 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
             </div>
 
             {/* Marca y Nombre */}
-            <p className="text-sm font-bold text-[#D4AF37] mb-2 uppercase tracking-wider">{product.brand}</p>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">{product.name}</h2>
+            <p className="text-sm font-bold text-[#D4AF37] mb-1 md:mb-0.5 uppercase tracking-wider">{product.brand}</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 md:mb-2 leading-tight">{product.name}</h2>
 
             {/* Precio y Botón de Añadir */}
-            <div className="mb-6 flex items-center justify-between">
+            <div className="mb-4 md:mb-3 flex items-center justify-between">
               <div>
                 {hasDiscount ? (
                   <div className="flex flex-col">
-                    <span className="text-sm text-gray-500 line-through decoration-gray-400 decoration-1 font-medium mb-1">
+                    <span className="text-sm text-gray-500 line-through decoration-gray-400 decoration-1 font-medium mb-0.5">
                       Bs. {comparePriceNum.toFixed(2)}
                     </span>
                     <span className="text-3xl font-black text-red-600 leading-none">
@@ -104,30 +104,30 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
 
             {/* Detalles Específicos Skincare (Opcionales) */}
             {hasSkincareDetails && (
-              <div className="mt-4 border-t border-gray-100 pt-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Detalles del Producto</h3>
-                <ul className="space-y-3 text-sm text-gray-700">
+              <div className="mt-2 md:mt-1 border-t border-gray-100 pt-4 md:pt-3">
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Detalles del Producto</h3>
+                <ul className="space-y-2 md:space-y-1 text-sm text-gray-700">
                   {product.skinType && (
                     <li>
-                      <span className="font-bold text-skc-purple block mb-0.5">Tipo de Piel:</span>
+                      <span className="font-bold text-skc-purple md:inline md:mr-1 block mb-0.5 md:mb-0">Tipo de Piel:</span>
                       <span className="leading-relaxed">{product.skinType}</span>
                     </li>
                   )}
                   {product.benefits && (
                     <li>
-                      <span className="font-bold text-skc-purple block mb-0.5">Beneficios:</span>
+                      <span className="font-bold text-skc-purple md:inline md:mr-1 block mb-0.5 md:mb-0">Beneficios:</span>
                       <span className="leading-relaxed">{product.benefits}</span>
                     </li>
                   )}
                   {product.keyIngredients && (
                     <li>
-                      <span className="font-bold text-skc-purple block mb-0.5">Ingredientes Clave:</span>
+                      <span className="font-bold text-skc-purple md:inline md:mr-1 block mb-0.5 md:mb-0">Ingredientes Clave:</span>
                       <span className="leading-relaxed">{product.keyIngredients}</span>
                     </li>
                   )}
                   {product.usage && (
                     <li>
-                      <span className="font-bold text-skc-purple block mb-0.5">Modo de Uso:</span>
+                      <span className="font-bold text-skc-purple md:inline md:mr-1 block mb-0.5 md:mb-0">Modo de Uso:</span>
                       <span className="leading-relaxed">{product.usage}</span>
                     </li>
                   )}
