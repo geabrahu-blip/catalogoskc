@@ -36,7 +36,7 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
         onClick={() => onViewDetails && onViewDetails(product)}
       >
         {/* Imagen con contenedor que simula el fondo de la imagen de referencia */}
-        <div className="relative w-full aspect-square rounded-2xl bg-gray-50 overflow-hidden flex items-center justify-center mt-1">
+        <div className="relative w-full aspect-square rounded-2xl bg-gray-50 border border-skc-copper/30 overflow-hidden flex items-center justify-center mt-1">
           <img
             src={imageUrl}
             alt={product.name}
