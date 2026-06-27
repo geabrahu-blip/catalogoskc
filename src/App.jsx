@@ -192,7 +192,7 @@ function App() {
               <div className="mt-10 flex justify-center">
                 <button
                   onClick={handleLoadMore}
-                  className="bg-skc-purple-dark border-2 border-white/20 text-white hover:bg-white/10 font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-sm"
+                  className="bg-gradient-to-r from-skc-purple to-skc-purple-dark border-2 border-white/20 text-white hover:opacity-90 font-bold py-3 px-8 rounded-full transition-opacity duration-300 shadow-sm"
                 >
                   Ver más productos
                 </button>
@@ -200,7 +200,7 @@ function App() {
             )}
           </>
         ) : (
-          <div className="text-center py-20 text-gray-300 bg-skc-purple-dark rounded-xl shadow-sm border border-white/10">
+          <div className="text-center py-20 text-gray-300 bg-gradient-to-br from-skc-purple to-skc-purple-dark rounded-xl shadow-sm border border-white/10">
             <p className="text-xl mb-2 text-white">No encontramos productos.</p>
             <p className="text-sm">Intenta buscar con otras palabras.</p>
           </div>

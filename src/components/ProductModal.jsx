@@ -25,7 +25,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
       ></div>
 
       {/* Modal Content */}
-      <div className="bg-skc-purple-dark rounded-[2rem] shadow-2xl relative w-full max-w-2xl md:max-w-4xl max-h-[90vh] flex flex-col overflow-hidden z-10 animate-fade-in-up border border-white/10">
+      <div className="bg-gradient-to-br from-skc-purple to-skc-purple-dark rounded-[2rem] shadow-2xl relative w-full max-w-2xl md:max-w-4xl max-h-[90vh] flex flex-col overflow-hidden z-10 animate-fade-in-up border border-white/10">
 
         {/* Header con botón cerrar */}
         <div className="absolute top-4 right-4 z-20">
@@ -41,11 +41,11 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
         <div className="overflow-y-auto p-0 md:flex flex-col md:flex-row">
 
           {/* Imagen de Producto */}
-          <div className="relative w-full md:w-1/2 bg-white border-r border-b md:border-b-0 border-white/10 flex items-center justify-center p-6 min-h-[300px]">
+          <div className="relative w-full md:w-1/2 bg-transparent border-r border-b md:border-b-0 border-white/10 flex items-center justify-center p-6 min-h-[300px]">
              <img
                 src={imageUrl}
                 alt={product.name}
-                className="w-full h-full object-contain max-h-[400px] mix-blend-multiply"
+                className="w-full h-full object-contain max-h-[400px] rounded-2xl"
                 loading="lazy"
               />
           </div>

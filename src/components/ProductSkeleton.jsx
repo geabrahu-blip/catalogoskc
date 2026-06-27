@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ProductSkeleton() {
   return (
-    <div className="bg-skc-purple-dark rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.15)] overflow-hidden flex flex-col h-full border border-white/10 relative p-3 animate-pulse">
+    <div className="bg-gradient-to-br from-skc-purple to-skc-purple-dark rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.15)] overflow-hidden flex flex-col h-full border border-white/10 relative p-3 animate-pulse">
       {/* Imagen Placeholder */}
       <div className="relative w-full aspect-square rounded-2xl bg-white/10 overflow-hidden flex items-center justify-center mb-5 border border-white/5">
       </div>

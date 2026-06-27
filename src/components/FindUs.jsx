@@ -3,8 +3,8 @@ import { FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
 export default function FindUs() {
   return (
-    <section className="mt-16 mb-8 bg-skc-purple-dark rounded-2xl shadow-sm border border-white/10 overflow-hidden">
-      <div className="bg-gradient-to-r from-skc-purple to-skc-purple-dark px-6 py-4">
+    <section className="mt-16 mb-8 bg-gradient-to-br from-skc-purple to-skc-purple-dark rounded-2xl shadow-sm border border-white/10 overflow-hidden">
+      <div className="bg-gradient-to-r from-skc-purple to-skc-purple-dark px-6 py-4 border-b border-white/10">
         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
           <FaMapMarkerAlt />
           Nuestras Sucursales
