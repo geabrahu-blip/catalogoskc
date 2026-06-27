@@ -192,7 +192,7 @@ function App() {
               <div className="mt-10 flex justify-center">
                 <button
                   onClick={handleLoadMore}
-                  className="bg-white border-2 border-skc-purple text-skc-purple hover:bg-skc-purple hover:text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-sm"
+                  className="bg-white border-2 border-skc-copper text-skc-copper hover:bg-skc-copper hover:text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-sm"
                 >
                   Ver más productos
                 </button>
