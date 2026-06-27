@@ -50,7 +50,7 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
           <p className="text-[11px] font-bold text-[#D4AF37] mb-1 uppercase tracking-wider">{product.brand}</p>
 
           {/* Título */}
-          <h3 className="text-[14px] leading-tight font-bold text-gray-900 mb-3 flex-grow line-clamp-3 hover:text-skc-purple transition-colors">
+          <h3 className="text-[14px] leading-tight font-bold text-gray-900 mb-3 flex-grow line-clamp-3 hover:text-skc-purple-dark transition-colors">
             {product.name}
           </h3>
 
@@ -85,7 +85,7 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
               </>
             ) : (
               <>
-                <span className="text-[26px] font-black text-skc-purple leading-none mt-1">
+                <span className="text-[26px] font-black text-skc-purple-dark leading-none mt-1">
                   Bs. {currentPrice.toFixed(2)}
                 </span>
               </>
@@ -97,7 +97,7 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
               e.stopPropagation(); // Evitar que el click en "Añadir al carrito" abra el modal
               onAddToCart(product);
             }}
-            className="bg-skc-purple hover:bg-opacity-90 text-white w-12 h-12 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-purple focus:ring-opacity-50 shadow-md flex-shrink-0"
+            className="bg-skc-copper hover:bg-opacity-90 text-white w-12 h-12 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-copper focus:ring-opacity-50 shadow-md flex-shrink-0"
             aria-label={`Añadir ${product.name} al carrito`}
           >
             <FaCartPlus className="text-xl" />

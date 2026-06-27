@@ -31,7 +31,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
         <div className="absolute top-4 right-4 z-20">
           <button
             onClick={onClose}
-            className="bg-white bg-opacity-80 hover:bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-skc-purple"
+            className="bg-white bg-opacity-80 hover:bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-skc-copper"
             aria-label="Cerrar detalles del producto"
           >
             <FaTimes className="text-xl" />
@@ -84,7 +84,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                     </span>
                   </div>
                 ) : (
-                  <span className="text-3xl font-black text-skc-purple leading-none block">
+                  <span className="text-3xl font-black text-skc-purple-dark leading-none block">
                     Bs. {currentPrice.toFixed(2)}
                   </span>
                 )}
@@ -95,10 +95,10 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                   e.stopPropagation();
                   if (onAddToCart) onAddToCart(product);
                 }}
-                className="bg-skc-purple hover:bg-opacity-90 text-white w-14 h-14 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-purple focus:ring-opacity-50 shadow-md flex-shrink-0 ml-4"
+                className="bg-skc-copper hover:bg-opacity-90 text-white w-14 h-14 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-copper focus:ring-opacity-50 shadow-md flex-shrink-0 ml-4"
                 aria-label={`Añadir ${product.name} al carrito`}
               >
-                <FaCartPlus className="text-2xl text-[#D4AF37]" />
+                <FaCartPlus className="text-2xl text-white" />
               </button>
             </div>
 
@@ -109,25 +109,25 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                 <ul className="space-y-2 md:space-y-1 text-sm text-gray-700">
                   {product.skinType && (
                     <li>
-                      <span className="font-bold text-skc-purple md:inline md:mr-1 block mb-0.5 md:mb-0">Tipo de Piel:</span>
+                      <span className="font-bold text-skc-purple-dark md:inline md:mr-1 block mb-0.5 md:mb-0">Tipo de Piel:</span>
                       <span className="leading-relaxed">{product.skinType}</span>
                     </li>
                   )}
                   {product.benefits && (
                     <li>
-                      <span className="font-bold text-skc-purple md:inline md:mr-1 block mb-0.5 md:mb-0">Beneficios:</span>
+                      <span className="font-bold text-skc-purple-dark md:inline md:mr-1 block mb-0.5 md:mb-0">Beneficios:</span>
                       <span className="leading-relaxed">{product.benefits}</span>
                     </li>
                   )}
                   {product.keyIngredients && (
                     <li>
-                      <span className="font-bold text-skc-purple md:inline md:mr-1 block mb-0.5 md:mb-0">Ingredientes Clave:</span>
+                      <span className="font-bold text-skc-purple-dark md:inline md:mr-1 block mb-0.5 md:mb-0">Ingredientes Clave:</span>
                       <span className="leading-relaxed">{product.keyIngredients}</span>
                     </li>
                   )}
                   {product.usage && (
                     <li>
-                      <span className="font-bold text-skc-purple md:inline md:mr-1 block mb-0.5 md:mb-0">Modo de Uso:</span>
+                      <span className="font-bold text-skc-purple-dark md:inline md:mr-1 block mb-0.5 md:mb-0">Modo de Uso:</span>
                       <span className="leading-relaxed">{product.usage}</span>
                     </li>
                   )}

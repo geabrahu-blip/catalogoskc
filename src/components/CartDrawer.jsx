@@ -79,7 +79,7 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
                   <div className="flex-1 flex flex-col justify-between">
                     <div>
                       <h4 className="font-semibold text-gray-800 text-sm line-clamp-2">{item.name}</h4>
-                      <p className="text-skc-purple font-bold mt-1">Bs. {price}</p>
+                      <p className="text-skc-purple-dark font-bold mt-1">Bs. {price}</p>
                     </div>
                     <div className="flex items-center justify-between mt-2">
                       <div className="flex items-center bg-white rounded-lg border border-gray-200 shadow-sm">
@@ -117,7 +117,7 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
           <div className="p-4 border-t border-gray-100 bg-white">
             <div className="flex justify-between items-center mb-4">
               <span className="text-gray-600 font-medium">Total Estimado</span>
-              <span className="text-2xl font-bold text-skc-purple">Bs. {total}</span>
+              <span className="text-2xl font-bold text-skc-purple-dark">Bs. {total}</span>
             </div>
             <button
               onClick={handleCheckout}

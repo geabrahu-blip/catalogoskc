@@ -4,7 +4,7 @@ import { FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 export default function FindUs() {
   return (
     <section className="mt-16 mb-8 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-      <div className="bg-skc-purple px-6 py-4">
+      <div className="bg-gradient-to-r from-skc-purple to-skc-purple-dark px-6 py-4">
         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
           <FaMapMarkerAlt />
           Nuestras Sucursales
@@ -24,7 +24,7 @@ export default function FindUs() {
           <div className="w-full lg:w-1/2 flex flex-col space-y-4">
             <h3 className="text-xl font-bold text-gray-800">Sucursal Centro</h3>
 
-            <div className="flex items-start gap-3 text-skc-purple bg-skc-purple/10 p-4 rounded-xl border border-skc-purple/20">
+            <div className="flex items-start gap-3 text-skc-purple-dark bg-skc-purple-dark/10 p-4 rounded-xl border border-skc-purple-dark/20">
               <FaClock className="mt-1 text-xl" />
               <div>
                 <p className="font-bold text-lg">Horarios de Atención</p>
@@ -56,7 +56,7 @@ export default function FindUs() {
           <div className="w-full lg:w-1/2 flex flex-col space-y-4">
             <h3 className="text-xl font-bold text-gray-800">Sucursal Norte</h3>
 
-            <div className="flex items-start gap-3 text-skc-purple bg-skc-purple/10 p-4 rounded-xl border border-skc-purple/20">
+            <div className="flex items-start gap-3 text-skc-purple-dark bg-skc-purple-dark/10 p-4 rounded-xl border border-skc-purple-dark/20">
               <FaClock className="mt-1 text-xl" />
               <div>
                 <p className="font-bold text-lg">Horarios de Atención</p>

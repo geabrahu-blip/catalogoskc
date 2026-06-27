@@ -7,9 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        'skc-purple': '#c77dff', // stronger purple
+        'skc-purple': '#c5417b', // light magenta/purple from image
+        'skc-purple-dark': '#501548', // dark purple from image
         'skc-white': '#FFFFFF',
-        'skc-gold': '#FFD700', // gold for libra
+        'skc-copper': '#c26953', // copper/rose gold from image horseshoe
       }
     },
   },
