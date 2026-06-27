@@ -21,7 +21,7 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
   const currentPrice = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
 
   return (
-    <div className="bg-skc-purple-dark rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)] transition-all duration-300 flex flex-col h-full border border-white/10 relative p-3 mt-3">
+    <div className="bg-gradient-to-br from-skc-purple to-skc-purple-dark rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)] transition-all duration-300 flex flex-col h-full border border-white/10 relative p-3 mt-3">
 
       {/* Badge de Oferta desplazado hacia arriba y con animación */}
       {hasDiscount && (
@@ -36,11 +36,11 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
         onClick={() => onViewDetails && onViewDetails(product)}
       >
         {/* Imagen con contenedor que simula el fondo de la imagen de referencia */}
-        <div className="relative w-full aspect-square rounded-2xl bg-white border border-white/20 overflow-hidden flex items-center justify-center mt-1">
+        <div className="relative w-full aspect-square rounded-2xl bg-transparent border border-white/20 overflow-hidden flex items-center justify-center mt-1">
           <img
             src={imageUrl}
             alt={product.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover rounded-2xl"
             loading="lazy"
           />
         </div>

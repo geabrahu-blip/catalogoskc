@@ -41,7 +41,7 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
       )}
 
       {/* Drawer */}
-      <div className={`fixed inset-y-0 right-0 max-w-md w-full bg-skc-purple-dark shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed inset-y-0 right-0 max-w-md w-full bg-gradient-to-br from-skc-purple to-skc-purple-dark shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
 
         {/* Header */}
         <div className="flex justify-between items-center p-4 border-b border-white/10">
@@ -69,11 +69,11 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
               const price = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
               return (
                 <div key={item.id} className="flex gap-4 p-3 bg-white/5 rounded-lg border border-white/10">
-                  <div className="w-20 h-20 bg-white border border-white/20 rounded-md flex-shrink-0 flex items-center justify-center overflow-hidden">
+                  <div className="w-20 h-20 bg-transparent border border-white/20 rounded-md flex-shrink-0 flex items-center justify-center overflow-hidden">
                     <img
                       src={item.image || 'https://via.placeholder.com/150'}
                       alt={item.name}
-                      className="max-w-full max-h-full object-contain mix-blend-multiply"
+                      className="max-w-full max-h-full object-contain rounded-md"
                     />
                   </div>
                   <div className="flex-1 flex flex-col justify-between">
