@@ -3,7 +3,7 @@ import { FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
 export default function FindUs() {
   return (
-    <section className="mt-16 mb-8 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <section className="mt-16 mb-8 bg-white/80 backdrop-blur-md rounded-2xl shadow-sm border border-white/50 overflow-hidden">
       <div className="bg-gradient-to-r from-skc-purple to-skc-purple-dark px-6 py-4">
         <h2 className="text-2xl font-bold text-white flex items-center gap-2">
           <FaMapMarkerAlt />
@@ -13,7 +13,7 @@ export default function FindUs() {
 
       <div className="flex flex-col gap-8 p-6">
         {/* Sucursal Centro */}
-        <div className="flex flex-col lg:flex-row gap-6 border-b border-gray-100 pb-8">
+        <div className="flex flex-col lg:flex-row gap-6 border-b border-skc-copper/10 pb-8">
           <div className="w-full lg:w-1/2">
             <img
               src="/sucursal-centro.jpeg"
@@ -37,7 +37,7 @@ export default function FindUs() {
               href="https://maps.app.goo.gl/kjwQV9D9CyJW3T5y8"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg transition-colors border border-gray-300"
+              className="text-center bg-white/70 hover:bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg transition-colors border border-gray-200/50"
             >
               Abrir en Google Maps
             </a>
@@ -69,7 +69,7 @@ export default function FindUs() {
               href="https://maps.app.goo.gl/t2jfDuZRuqwrjD9X8?g_st=aw"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg transition-colors border border-gray-300"
+              className="text-center bg-white/70 hover:bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg transition-colors border border-gray-200/50"
             >
               Abrir en Google Maps
             </a>

@@ -25,13 +25,13 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
       ></div>
 
       {/* Modal Content */}
-      <div className="bg-white rounded-[2rem] shadow-2xl relative w-full max-w-2xl md:max-w-4xl max-h-[90vh] flex flex-col overflow-hidden z-10 animate-fade-in-up">
+      <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] shadow-2xl relative w-full max-w-2xl md:max-w-4xl max-h-[90vh] flex flex-col overflow-hidden z-10 animate-fade-in-up border border-white/50">
 
         {/* Header con botón cerrar */}
         <div className="absolute top-4 right-4 z-20">
           <button
             onClick={onClose}
-            className="bg-white bg-opacity-80 hover:bg-gray-100 text-gray-700 w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-skc-copper"
+            className="bg-white/80 hover:bg-white text-gray-700 w-10 h-10 rounded-full flex items-center justify-center shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-skc-copper"
             aria-label="Cerrar detalles del producto"
           >
             <FaTimes className="text-xl" />
@@ -41,7 +41,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
         <div className="overflow-y-auto p-0 md:flex flex-col md:flex-row">
 
           {/* Imagen de Producto */}
-          <div className="relative w-full md:w-1/2 bg-gray-50 border-r border-b md:border-b-0 border-skc-copper/20 flex items-center justify-center p-6 min-h-[300px]">
+          <div className="relative w-full md:w-1/2 bg-white/50 border-r border-b md:border-b-0 border-skc-copper/20 flex items-center justify-center p-6 min-h-[300px]">
              <img
                 src={imageUrl}
                 alt={product.name}
@@ -56,12 +56,12 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
             {/* Categorías / Presentación */}
             <div className="flex flex-wrap gap-2 mb-2 md:mb-1">
               {product.presentation && (
-                <span className="text-xs font-semibold text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                <span className="text-xs font-semibold text-gray-600 bg-white/70 border border-gray-200/50 px-3 py-1 rounded-full">
                   {product.presentation}
                 </span>
               )}
               {product.category && (
-                <span className="text-xs font-semibold text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                <span className="text-xs font-semibold text-gray-600 bg-white/70 border border-gray-200/50 px-3 py-1 rounded-full">
                   {product.category}
                 </span>
               )}
