@@ -147,7 +147,7 @@ function App() {
   const cartItemCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans text-gray-800 pb-20">
+    <div className="min-h-screen bg-skc-background font-sans text-gray-800 pb-20">
       <Header
         cartItemCount={cartItemCount}
         onCartClick={() => setIsCartOpen(true)}
