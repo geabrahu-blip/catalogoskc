@@ -19,7 +19,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
       {/* Overlay */}
       <div
-        className="absolute inset-0 bg-black bg-opacity-50 transition-opacity"
+        className="absolute inset-0 bg-skc-purple-dark bg-opacity-70 transition-opacity backdrop-blur-sm"
         onClick={onClose}
         aria-hidden="true"
       ></div>
@@ -41,7 +41,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
         <div className="overflow-y-auto p-0 md:flex flex-col md:flex-row">
 
           {/* Imagen de Producto */}
-          <div className="relative w-full md:w-1/2 bg-gray-50 flex items-center justify-center p-6 min-h-[300px]">
+          <div className="relative w-full md:w-1/2 bg-gray-50 border-r border-b md:border-b-0 border-skc-copper/20 flex items-center justify-center p-6 min-h-[300px]">
              <img
                 src={imageUrl}
                 alt={product.name}

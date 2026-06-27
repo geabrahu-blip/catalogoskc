@@ -35,7 +35,7 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity"
+          className="fixed inset-0 bg-skc-purple-dark bg-opacity-70 z-40 transition-opacity backdrop-blur-sm"
           onClick={onClose}
         ></div>
       )}
@@ -68,8 +68,8 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
               const priceBsNum = Number(item.priceBs) || 0;
               const price = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
               return (
-                <div key={item.id} className="flex gap-4 p-3 bg-gray-50 rounded-lg border border-gray-100">
-                  <div className="w-20 h-20 bg-white rounded-md flex-shrink-0 flex items-center justify-center overflow-hidden">
+                <div key={item.id} className="flex gap-4 p-3 bg-gray-50 rounded-lg border border-skc-copper/20">
+                  <div className="w-20 h-20 bg-white border border-skc-copper/30 rounded-md flex-shrink-0 flex items-center justify-center overflow-hidden">
                     <img
                       src={item.image || 'https://via.placeholder.com/150'}
                       alt={item.name}
