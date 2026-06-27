@@ -41,7 +41,7 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
       )}
 
       {/* Drawer */}
-      <div className={`fixed inset-y-0 right-0 max-w-md w-full bg-white/95 backdrop-blur-xl shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed inset-y-0 right-0 max-w-md w-full bg-skc-card shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
 
         {/* Header */}
         <div className="flex justify-between items-center p-4 border-b border-skc-copper/10">
@@ -68,8 +68,8 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
               const priceBsNum = Number(item.priceBs) || 0;
               const price = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
               return (
-                <div key={item.id} className="flex gap-4 p-3 bg-white/50 rounded-lg border border-skc-copper/20">
-                  <div className="w-20 h-20 bg-white/80 border border-skc-copper/30 rounded-md flex-shrink-0 flex items-center justify-center overflow-hidden">
+                <div key={item.id} className="flex gap-4 p-3 bg-skc-surface rounded-lg border border-skc-copper/20">
+                  <div className="w-20 h-20 bg-skc-card border border-skc-copper/30 rounded-md flex-shrink-0 flex items-center justify-center overflow-hidden">
                     <img
                       src={item.image || 'https://via.placeholder.com/150'}
                       alt={item.name}
@@ -82,10 +82,10 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
                       <p className="text-skc-purple-dark font-bold mt-1">Bs. {price}</p>
                     </div>
                     <div className="flex items-center justify-between mt-2">
-                      <div className="flex items-center bg-white/70 rounded-lg border border-gray-200/50 shadow-sm">
+                      <div className="flex items-center bg-skc-card rounded-lg border border-skc-copper/20 shadow-sm">
                         <button
                           onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
-                          className="px-2 py-1 text-gray-600 hover:bg-white rounded-l-lg transition"
+                          className="px-2 py-1 text-gray-600 hover:bg-skc-surface rounded-l-lg transition"
                           disabled={item.quantity <= 1}
                         >
                           <FaMinus className="text-xs" />
@@ -93,7 +93,7 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
                         <span className="px-3 py-1 text-sm font-medium">{item.quantity}</span>
                         <button
                           onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                          className="px-2 py-1 text-gray-600 hover:bg-white rounded-r-lg transition"
+                          className="px-2 py-1 text-gray-600 hover:bg-skc-surface rounded-r-lg transition"
                         >
                           <FaPlus className="text-xs" />
                         </button>
@@ -114,7 +114,7 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
 
         {/* Footer / Checkout */}
         {cartItems.length > 0 && (
-          <div className="p-4 border-t border-skc-copper/10 bg-white/50">
+          <div className="p-4 border-t border-skc-copper/10 bg-skc-surface">
             <div className="flex justify-between items-center mb-4">
               <span className="text-gray-600 font-medium">Total Estimado</span>
               <span className="text-2xl font-bold text-skc-purple-dark">Bs. {total}</span>

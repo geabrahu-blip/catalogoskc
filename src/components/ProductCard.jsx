@@ -21,7 +21,7 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
   const currentPrice = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
 
   return (
-    <div className="bg-white/80 backdrop-blur-md rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 flex flex-col h-full border border-white/50 relative p-3 mt-3">
+    <div className="bg-skc-card rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 flex flex-col h-full border border-skc-copper/10 relative p-3 mt-3">
 
       {/* Badge de Oferta desplazado hacia arriba y con animación */}
       {hasDiscount && (
@@ -36,7 +36,7 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
         onClick={() => onViewDetails && onViewDetails(product)}
       >
         {/* Imagen con contenedor que simula el fondo de la imagen de referencia */}
-        <div className="relative w-full aspect-square rounded-2xl bg-white/50 border border-skc-copper/20 overflow-hidden flex items-center justify-center mt-1">
+        <div className="relative w-full aspect-square rounded-2xl bg-skc-surface border border-skc-copper/20 overflow-hidden flex items-center justify-center mt-1">
           <img
             src={imageUrl}
             alt={product.name}
@@ -57,12 +57,12 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
           {/* Pastillas de Categoría / Presentación */}
           <div className="flex flex-wrap gap-1.5 mb-4">
             {product.presentation && (
-              <span className="text-[10px] font-semibold text-gray-600 bg-white/70 border border-gray-200/50 px-2.5 py-0.5 rounded-full">
+              <span className="text-[10px] font-semibold text-gray-600 bg-skc-surface border border-skc-copper/10 px-2.5 py-0.5 rounded-full">
                 {product.presentation}
               </span>
             )}
             {product.category && (
-              <span className="text-[10px] font-semibold text-gray-600 bg-white/70 border border-gray-200/50 px-2.5 py-0.5 rounded-full">
+              <span className="text-[10px] font-semibold text-gray-600 bg-skc-surface border border-skc-copper/10 px-2.5 py-0.5 rounded-full">
                 {product.category}
               </span>
             )}

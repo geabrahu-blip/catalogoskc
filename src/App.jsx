@@ -192,7 +192,7 @@ function App() {
               <div className="mt-10 flex justify-center">
                 <button
                   onClick={handleLoadMore}
-                  className="bg-white/80 backdrop-blur-sm border-2 border-skc-copper text-skc-copper hover:bg-skc-copper hover:text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-sm"
+                  className="bg-skc-card border-2 border-skc-copper text-skc-copper hover:bg-skc-copper hover:text-white font-bold py-3 px-8 rounded-full transition-colors duration-300 shadow-sm"
                 >
                   Ver más productos
                 </button>
@@ -200,7 +200,7 @@ function App() {
             )}
           </>
         ) : (
-          <div className="text-center py-20 text-gray-500 bg-white/80 backdrop-blur-md rounded-xl shadow-sm border border-white/50">
+          <div className="text-center py-20 text-gray-500 bg-skc-card rounded-xl shadow-sm border border-skc-copper/10">
             <p className="text-xl mb-2">No encontramos productos.</p>
             <p className="text-sm">Intenta buscar con otras palabras.</p>
           </div>
