@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaShoppingCart, FaBalanceScale, FaSearch } from 'react-icons/fa';
+import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 
 export default function Header({
   cartItemCount,
@@ -17,7 +17,7 @@ export default function Header({
         <div className="flex items-center justify-between gap-3 mb-3">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <FaBalanceScale className="text-skc-copper text-3xl" title="Victoria's Shop" />
+            <img src="/logo.png" alt="Victoria's Shop" className="h-10 w-10 rounded-full object-cover" />
           </div>
 
           {/* Search Bar */}
