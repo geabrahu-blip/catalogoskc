@@ -20,7 +20,12 @@ export default function CartDrawer({ isOpen, onClose, cartItems, onUpdateQuantit
       const sellingPriceNum = Number(item.sellingPrice) || 0;
       const priceBsNum = Number(item.priceBs) || 0;
       const price = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
-      rawMessage += `- ${item.quantity}x ${item.name} (Bs. ${price} c/u) = Bs. ${price * item.quantity}\n`;
+
+      let productDescription = item.name;
+      if (item.brand) productDescription += ` - ${item.brand}`;
+      if (item.presentation) productDescription += ` - ${item.presentation}`;
+
+      rawMessage += `- ${item.quantity}x ${productDescription} (Bs. ${price} c/u) = Bs. ${price * item.quantity}\n`;
     });
 
     rawMessage += `\n*Total: Bs. ${total}*\n\nQuedo atento/a para coordinar la entrega y el pago. ¡Gracias!`;
