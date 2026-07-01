@@ -5,6 +5,7 @@ import ProductSkeleton from './components/ProductSkeleton';
 import CartDrawer from './components/CartDrawer';
 import FindUs from './components/FindUs';
 import ProductModal from './components/ProductModal';
+import Toast from './components/Toast';
 import { db } from './firebase';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { FaSearch } from 'react-icons/fa';
@@ -19,6 +20,10 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // Toast state
+  const [toastMessage, setToastMessage] = useState('');
+  const [isToastVisible, setIsToastVisible] = useState(false);
 
   // Pagination states
   const [visibleCount, setVisibleCount] = useState(20);
@@ -87,7 +92,7 @@ function App() {
     fetchProducts();
   }, []);
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, fromDetails = false) => {
     setCartItems(prev => {
       const existing = prev.find(item => item.id === product.id);
       if (existing) {
@@ -97,6 +102,14 @@ function App() {
       }
       return [...prev, { ...product, quantity: 1 }];
     });
+
+    // Show toast
+    const message = fromDetails
+      ? '¡Producto añadido desde detalles al carrito!'
+      : '¡Producto añadido al carrito!';
+
+    setToastMessage(message);
+    setIsToastVisible(true);
   };
 
   const handleUpdateQuantity = (id, newQuantity) => {
@@ -215,6 +228,12 @@ function App() {
         product={selectedProduct}
         onClose={() => setSelectedProduct(null)}
         onAddToCart={handleAddToCart}
+      />
+
+      <Toast
+        message={toastMessage}
+        isVisible={isToastVisible}
+        onClose={() => setIsToastVisible(false)}
       />
     </div>
   );

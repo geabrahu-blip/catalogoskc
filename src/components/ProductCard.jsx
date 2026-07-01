@@ -95,7 +95,7 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
           <button
             onClick={(e) => {
               e.stopPropagation(); // Evitar que el click en "Añadir al carrito" abra el modal
-              onAddToCart(product);
+              onAddToCart(product, false);
             }}
             className="bg-skc-copper hover:bg-opacity-90 text-white w-12 h-12 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-copper focus:ring-opacity-50 shadow-md flex-shrink-0"
             aria-label={`Añadir ${product.name} al carrito`}

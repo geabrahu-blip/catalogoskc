@@ -93,7 +93,7 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (onAddToCart) onAddToCart(product);
+                  if (onAddToCart) onAddToCart(product, true);
                 }}
                 className="bg-skc-copper hover:bg-opacity-90 text-white w-14 h-14 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-copper focus:ring-opacity-50 shadow-md flex-shrink-0 ml-4"
                 aria-label={`Añadir ${product.name} al carrito`}
