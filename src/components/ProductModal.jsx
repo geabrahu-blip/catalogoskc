@@ -41,17 +41,22 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
         <div className="overflow-y-auto p-0 md:flex flex-col md:flex-row">
 
           {/* Imagen de Producto */}
-          <div className="relative w-full md:w-1/2 bg-transparent border-r border-b md:border-b-0 border-white/10 flex items-center justify-center p-6 min-h-[300px]">
+          <div className="relative w-full md:w-1/2 p-4 md:p-6 h-48 md:h-auto md:min-h-[300px] flex items-center justify-center bg-transparent border-r border-b md:border-b-0 border-white/10">
+             {hasDiscount && (
+               <div className="absolute top-2 left-2 md:top-4 md:left-4 bg-red-500 text-white text-[10px] md:text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-lg z-10 animate-pulse">
+                 Oferta
+               </div>
+             )}
              <img
                 src={imageUrl}
                 alt={product.name}
-                className="w-full h-full object-contain max-h-[400px] rounded-2xl"
+                className="max-h-[160px] md:max-h-[400px] w-full h-full object-contain rounded-2xl"
                 loading="lazy"
               />
           </div>
 
           {/* Detalles e Información Básica */}
-          <div className="p-6 md:p-6 w-full md:w-1/2 flex flex-col justify-center">
+          <div className="p-4 md:p-6 w-full md:w-1/2 flex flex-col justify-center">
 
             {/* Categorías / Presentación */}
             <div className="flex flex-wrap gap-2 mb-2 md:mb-1">
@@ -69,18 +74,18 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
 
             {/* Marca y Nombre */}
             <p className="text-sm font-bold text-[#D4AF37] mb-1 md:mb-0.5 uppercase tracking-wider">{product.brand}</p>
-            <h2 className="text-2xl font-bold text-white mb-3 md:mb-2 leading-tight">{product.name}</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-2 leading-tight">{product.name}</h2>
 
             {/* Precio y Botón de Añadir */}
             <div className="mb-4 md:mb-3 flex items-center justify-between">
               <div>
                 {hasDiscount ? (
-                  <div className="flex flex-col">
-                    <span className="text-sm text-gray-400 line-through decoration-gray-400 decoration-1 font-medium mb-0.5">
-                      Bs. {comparePriceNum.toFixed(2)}
-                    </span>
-                    <span className="text-3xl font-black text-red-400 leading-none">
+                  <div className="flex flex-col justify-center">
+                    <span className="text-2xl md:text-3xl font-black text-red-400 leading-none">
                       Bs. {currentPrice.toFixed(2)}
+                    </span>
+                    <span className="text-xs text-gray-400 line-through decoration-gray-400 decoration-1 font-medium mt-1">
+                      Bs. {comparePriceNum.toFixed(2)}
                     </span>
                   </div>
                 ) : (
@@ -95,10 +100,10 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                   e.stopPropagation();
                   if (onAddToCart) onAddToCart(product, true);
                 }}
-                className="bg-skc-copper hover:bg-opacity-90 text-white w-14 h-14 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-copper focus:ring-opacity-50 shadow-md flex-shrink-0 ml-4"
+                className="bg-skc-copper hover:bg-opacity-90 text-white w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-copper focus:ring-opacity-50 shadow-md flex-shrink-0 ml-4"
                 aria-label={`Añadir ${product.name} al carrito`}
               >
-                <FaCartPlus className="text-2xl text-white" />
+                <FaCartPlus className="text-xl md:text-2xl text-white" />
               </button>
             </div>
 
@@ -109,26 +114,26 @@ export default function ProductModal({ product, onClose, onAddToCart }) {
                 <ul className="space-y-2 md:space-y-1 text-sm text-gray-200">
                   {product.skinType && (
                     <li>
-                      <span className="font-bold text-white md:inline md:mr-1 block mb-0.5 md:mb-0">Tipo de Piel:</span>
-                      <span className="leading-relaxed text-gray-300">{product.skinType}</span>
+                      <span className="font-bold text-white inline mr-1">Tipo de Piel:</span>
+                      <span className="leading-relaxed text-gray-300 line-clamp-2 md:line-clamp-none">{product.skinType}</span>
                     </li>
                   )}
                   {product.benefits && (
                     <li>
-                      <span className="font-bold text-white md:inline md:mr-1 block mb-0.5 md:mb-0">Beneficios:</span>
-                      <span className="leading-relaxed text-gray-300">{product.benefits}</span>
+                      <span className="font-bold text-white inline mr-1">Beneficios:</span>
+                      <span className="leading-relaxed text-gray-300 line-clamp-2 md:line-clamp-none">{product.benefits}</span>
                     </li>
                   )}
                   {product.keyIngredients && (
                     <li>
-                      <span className="font-bold text-white md:inline md:mr-1 block mb-0.5 md:mb-0">Ingredientes Clave:</span>
-                      <span className="leading-relaxed text-gray-300">{product.keyIngredients}</span>
+                      <span className="font-bold text-white inline mr-1">Ingredientes Clave:</span>
+                      <span className="leading-relaxed text-gray-300 line-clamp-2 md:line-clamp-none">{product.keyIngredients}</span>
                     </li>
                   )}
                   {product.usage && (
                     <li>
-                      <span className="font-bold text-white md:inline md:mr-1 block mb-0.5 md:mb-0">Modo de Uso:</span>
-                      <span className="leading-relaxed text-gray-300">{product.usage}</span>
+                      <span className="font-bold text-white inline mr-1">Modo de Uso:</span>
+                      <span className="leading-relaxed text-gray-300 line-clamp-2 md:line-clamp-none">{product.usage}</span>
                     </li>
                   )}
                 </ul>
