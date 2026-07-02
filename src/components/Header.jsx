@@ -8,7 +8,10 @@ export default function Header({
   onSearchChange,
   categories,
   selectedCategory,
-  onCategorySelect
+  onCategorySelect,
+  brands,
+  selectedBrand,
+  onBrandSelect
 }) {
   return (
     <header className="bg-gradient-to-r from-skc-purple to-skc-purple-dark text-white shadow-md sticky top-0 z-50">
@@ -50,6 +53,35 @@ export default function Header({
             </button>
           </div>
         </div>
+
+        {/* Middle Row: Brands Carousel */}
+        {brands && brands.length > 0 && (
+          <div className="flex overflow-x-auto pb-1 mb-2 hide-scrollbar -mx-4 px-4 gap-2">
+            <button
+              onClick={() => onBrandSelect('')}
+              className={`whitespace-nowrap px-3 py-1 text-xs rounded-full border transition-colors ${
+                selectedBrand === ''
+                  ? 'bg-skc-copper text-white border-skc-copper font-bold'
+                  : 'bg-transparent text-white border-white/50 hover:border-white'
+              }`}
+            >
+              Todas las Marcas
+            </button>
+            {brands.map((brand, idx) => (
+              <button
+                key={idx}
+                onClick={() => onBrandSelect(brand)}
+                className={`whitespace-nowrap px-3 py-1 text-xs rounded-full border transition-colors ${
+                  selectedBrand === brand
+                    ? 'bg-skc-copper text-white border-skc-copper font-bold'
+                    : 'bg-transparent text-white border-white/50 hover:border-white'
+                }`}
+              >
+                {brand}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Bottom Row: Categories Carousel */}
         {categories && categories.length > 0 && (

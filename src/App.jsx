@@ -16,6 +16,8 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [categories, setCategories] = useState([]);
+  const [selectedBrand, setSelectedBrand] = useState('');
+  const [brands, setBrands] = useState([]);
 
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -82,6 +84,10 @@ function App() {
         const uniqueCategories = [...new Set(validProducts.map(p => p.category).filter(Boolean))];
         setCategories(uniqueCategories.sort());
 
+        // Extract unique brands
+        const uniqueBrands = [...new Set(validProducts.map(p => p.brand).filter(Boolean))];
+        setBrands(uniqueBrands.sort());
+
       } catch (error) {
         console.error("Error fetching products: ", error);
       } finally {
@@ -136,13 +142,23 @@ function App() {
     setVisibleCount(20);
   };
 
+  const handleBrandSelect = (brand) => {
+    setSelectedBrand(brand);
+    setVisibleCount(20);
+  };
+
   const filteredProducts = products.filter(product => {
-    // 1. Filter by category
+    // 1. Filter by brand
+    if (selectedBrand && product.brand !== selectedBrand) {
+      return false;
+    }
+
+    // 2. Filter by category
     if (selectedCategory && product.category !== selectedCategory) {
       return false;
     }
 
-    // 2. Filter by search term
+    // 3. Filter by search term
     if (!searchTerm) return true;
     const searchLower = searchTerm.toLowerCase();
     const nameMatch = product.name?.toLowerCase().includes(searchLower);
@@ -169,6 +185,9 @@ function App() {
         categories={categories}
         selectedCategory={selectedCategory}
         onCategorySelect={handleCategorySelect}
+        brands={brands}
+        selectedBrand={selectedBrand}
+        onBrandSelect={handleBrandSelect}
       />
 
       <CartDrawer
