@@ -83,7 +83,8 @@ export default function Header({
           </div>
         )}
 
-        {/* Bottom Row: Categories Carousel */}
+        {/* Bottom Row: Categories Carousel (Oculto temporalmente según solicitud) */}
+        {/*
         {categories && categories.length > 0 && (
           <div className="flex overflow-x-auto pb-1 hide-scrollbar -mx-4 px-4 gap-2">
             <button
@@ -111,6 +112,7 @@ export default function Header({
             ))}
           </div>
         )}
+        */}
       </div>
     </header>
   );
