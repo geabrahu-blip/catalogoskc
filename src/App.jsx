@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import ProductCard from './components/ProductCard';
 import ProductSkeleton from './components/ProductSkeleton';
+import ProductCarousel from './components/ProductCarousel';
 import CartDrawer from './components/CartDrawer';
 import FindUs from './components/FindUs';
 import ProductModal from './components/ProductModal';
@@ -56,6 +57,8 @@ function App() {
               benefits: 'Hidratación profunda, rellena arrugas.',
               keyIngredients: 'Ácido Hialurónico, Vitamina B5',
               usage: 'Aplicar 2-3 gotas sobre la piel húmeda antes de cremas.',
+              createdAt: 1716300000000, // Older
+              lastRestockDate: 1718892000000, // Newer than createdAt
             },
             {
               id: '2',
@@ -65,6 +68,8 @@ function App() {
               presentation: '50 ml',
               sellingPrice: '80.00',
               image: 'https://via.placeholder.com/300x300?text=Crema',
+              createdAt: 1718892000000, // Newer
+              lastRestockDate: 1718892000000, // Same as createdAt
               // Sin campos de skincare adicionales para testear renderizado condicional
             }
           ];
@@ -175,6 +180,17 @@ function App() {
 
   const cartItemCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
+  const isPureState = !searchTerm && !selectedCategory && !selectedBrand;
+
+  const newArrivals = [...products]
+    .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+    .slice(0, 10);
+
+  const restockedItems = [...products]
+    .filter(p => p.lastRestockDate && p.createdAt && p.lastRestockDate > p.createdAt)
+    .sort((a, b) => (b.lastRestockDate || 0) - (a.lastRestockDate || 0))
+    .slice(0, 10);
+
   return (
     <div className="min-h-screen bg-skc-background font-sans text-gray-800 pb-20">
       <Header
@@ -199,6 +215,24 @@ function App() {
       />
 
       <main className="container mx-auto px-4 py-8">
+
+        {/* Carousels (Only on initial state) */}
+        {isPureState && !loading && (
+          <div className="mb-8 flex flex-col gap-2">
+            <ProductCarousel
+              title="✨ Novedades"
+              products={newArrivals}
+              onAddToCart={handleAddToCart}
+              onViewDetails={setSelectedProduct}
+            />
+            <ProductCarousel
+              title="📦 ¡Volvieron!"
+              products={restockedItems}
+              onAddToCart={handleAddToCart}
+              onViewDetails={setSelectedProduct}
+            />
+          </div>
+        )}
 
         {/* Product Grid */}
         {loading ? (
