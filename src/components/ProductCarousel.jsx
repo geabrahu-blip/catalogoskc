@@ -15,7 +15,7 @@ export default function ProductCarousel({ title, products, onAddToCart, onViewDe
         {products.map(product => (
           <div
             key={product.id}
-            className="w-[80vw] md:w-[280px] flex-shrink-0 snap-center pb-2"
+            className="w-[42vw] md:w-[280px] flex-shrink-0 snap-start pb-2"
           >
             <ProductCard
               product={product}
