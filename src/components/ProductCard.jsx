@@ -76,10 +76,10 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
             <span className="text-[10px] font-bold text-gray-300 uppercase tracking-wider mb-0.5">Precio</span>
             {hasDiscount ? (
               <>
-                <span className="text-[13px] text-gray-400 line-through decoration-gray-400 decoration-1 font-medium leading-none mb-1">
+                <span className="text-[13px] text-gray-300 line-through decoration-gray-300 decoration-2 font-medium leading-none mb-1">
                   Bs. {comparePriceNum.toFixed(2)}
                 </span>
-                <span className="text-[26px] font-black text-red-400 leading-none">
+                <span className="text-[26px] font-black text-[#D4AF37] leading-none">
                   Bs. {currentPrice.toFixed(2)}
                 </span>
               </>
