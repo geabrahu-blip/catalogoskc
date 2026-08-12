@@ -4,8 +4,8 @@ import ProductCard from './components/ProductCard';
 import ProductSkeleton from './components/ProductSkeleton';
 import ProductCarousel from './components/ProductCarousel';
 import CartDrawer from './components/CartDrawer';
-import FindUs from './components/FindUs';
 import ProductModal from './components/ProductModal';
+import FloatingLocations from './components/FloatingLocations';
 import Toast from './components/Toast';
 import { db } from './firebase';
 import { collection, getDocs, query } from 'firebase/firestore';
@@ -272,10 +272,9 @@ function App() {
           </div>
         )}
 
-        {/* Find Us Section */}
-        <FindUs />
-
       </main>
+
+      <FloatingLocations />
 
       <ProductModal
         product={selectedProduct}
