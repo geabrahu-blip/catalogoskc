@@ -11,7 +11,9 @@ export default function Header({
   onCategorySelect,
   brands,
   selectedBrand,
-  onBrandSelect
+  onBrandSelect,
+  searchResults = [],
+  onProductSelect
 }) {
   return (
     <header className="bg-gradient-to-r from-skc-purple to-skc-purple-dark text-white shadow-md sticky top-0 z-50">
@@ -25,16 +27,55 @@ export default function Header({
 
           {/* Search Bar */}
           <div className="flex-grow max-w-md relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
               <FaSearch className="text-skc-copper text-sm" />
             </div>
             <input
               type="text"
               placeholder="Buscar..."
-              className="w-full pl-9 pr-3 py-1.5 rounded-full border-2 border-transparent shadow-inner focus:outline-none focus:border-skc-copper focus:ring-2 focus:ring-skc-copper/50 text-gray-800 bg-white text-sm"
+              className="w-full pl-9 pr-3 py-1.5 rounded-full border-2 border-transparent shadow-inner focus:outline-none focus:border-skc-copper focus:ring-2 focus:ring-skc-copper/50 text-gray-800 bg-white text-sm relative z-10"
               value={searchTerm}
               onChange={onSearchChange}
             />
+
+            {/* Autocomplete Dropdown */}
+            {searchTerm && searchResults.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl overflow-hidden z-50 border border-gray-100 max-h-[60vh] overflow-y-auto">
+                {searchResults.map((product) => (
+                  <div
+                    key={product.id}
+                    onClick={() => {
+                      if (onProductSelect) {
+                        onProductSelect(product);
+                      }
+                    }}
+                    className="flex items-center p-2 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors"
+                  >
+                    <div className="w-12 h-12 flex-shrink-0 bg-transparent rounded-md overflow-hidden mr-3">
+                      <img
+                        src={product.image || 'https://via.placeholder.com/150'}
+                        alt={product.name}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <div className="flex-grow min-w-0">
+                      <p className="text-sm font-semibold text-gray-800 truncate" title={product.name}>
+                        {product.name}
+                      </p>
+                      <p className="text-xs text-skc-purple-dark font-medium truncate" title={product.brand}>
+                        {product.brand}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {searchTerm && searchResults.length === 0 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl z-50 border border-gray-100 p-4 text-center">
+                <p className="text-sm text-gray-500">No se encontraron productos.</p>
+              </div>
+            )}
           </div>
 
           {/* Cart Button */}
