@@ -10,6 +10,7 @@ import Toast from './components/Toast';
 import { db } from './firebase';
 import { collection, getDocs, query } from 'firebase/firestore';
 import { FaSearch } from 'react-icons/fa';
+import { normalizeText } from './utils/textUtils';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -165,10 +166,19 @@ function App() {
 
     // 3. Filter by search term
     if (!searchTerm) return true;
-    const searchLower = searchTerm.toLowerCase();
-    const nameMatch = product.name?.toLowerCase().includes(searchLower);
-    const brandMatch = product.brand?.toLowerCase().includes(searchLower);
-    const categoryMatch = product.category?.toLowerCase().includes(searchLower);
+
+    // Normalize search term and product fields to improve matching
+    const searchNorm = normalizeText(searchTerm);
+    if (!searchNorm) return true; // If search term normalizes to empty, don't filter out
+
+    const nameNorm = normalizeText(product.name);
+    const brandNorm = normalizeText(product.brand);
+    const categoryNorm = normalizeText(product.category);
+
+    const nameMatch = nameNorm.includes(searchNorm);
+    const brandMatch = brandNorm.includes(searchNorm);
+    const categoryMatch = categoryNorm.includes(searchNorm);
+
     return nameMatch || brandMatch || categoryMatch;
   });
 
@@ -204,6 +214,11 @@ function App() {
         brands={brands}
         selectedBrand={selectedBrand}
         onBrandSelect={handleBrandSelect}
+        searchResults={searchTerm ? visibleProducts.slice(0, 5) : []}
+        onProductSelect={(product) => {
+          setSelectedProduct(product);
+          // Optional: clear search term if desired, but keeping it is fine too.
+        }}
       />
 
       <CartDrawer
