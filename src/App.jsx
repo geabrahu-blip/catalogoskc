@@ -8,7 +8,7 @@ import ProductModal from './components/ProductModal';
 import FloatingLocations from './components/FloatingLocations';
 import Toast from './components/Toast';
 import { db } from './firebase';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { collection, getDocs, query, doc, getDoc } from 'firebase/firestore';
 import { FaSearch } from 'react-icons/fa';
 import { normalizeText } from './utils/textUtils';
 
@@ -20,6 +20,7 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState('');
   const [brands, setBrands] = useState([]);
+  const [featuredBrands, setFeaturedBrands] = useState([]);
 
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -40,6 +41,7 @@ function App() {
         const hasFirebaseConfig = import.meta.env.VITE_FIREBASE_API_KEY;
 
         let validProducts = [];
+        let fetchedFeaturedBrands = [];
 
         if (!hasFirebaseConfig || !db) {
           // Si no hay DB configurada, usa mocks para testear localmente el diseño
@@ -75,6 +77,20 @@ function App() {
             }
           ];
         } else {
+          // Fetch settings for featured brands
+          try {
+            const settingsDocRef = doc(db, 'settings', 'catalog_config');
+            const settingsDocSnap = await getDoc(settingsDocRef);
+            if (settingsDocSnap.exists()) {
+              const data = settingsDocSnap.data();
+              if (data.featuredBrands && Array.isArray(data.featuredBrands)) {
+                fetchedFeaturedBrands = data.featuredBrands;
+              }
+            }
+          } catch (settingsError) {
+            console.error("Error fetching settings: ", settingsError);
+          }
+
           const q = query(collection(db, 'public_catalog'));
           const querySnapshot = await getDocs(q);
           const productsList = querySnapshot.docs.map(doc => ({
@@ -85,6 +101,7 @@ function App() {
         }
 
         setProducts(validProducts);
+        setFeaturedBrands(fetchedFeaturedBrands);
 
         // Extract unique categories
         const uniqueCategories = [...new Set(validProducts.map(p => p.category).filter(Boolean))];
@@ -201,6 +218,19 @@ function App() {
     .sort((a, b) => (b.lastRestockDate || 0) - (a.lastRestockDate || 0))
     .slice(0, 10);
 
+  // Generar datos para los carruseles por marca dinámica
+  const featuredBrandCarousels = featuredBrands.map(brandName => {
+    const brandProducts = [...products]
+      .filter(p => p.brand === brandName)
+      .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+      .slice(0, 4); // Tomar los 4 más recientes
+
+    return {
+      brandName,
+      products: brandProducts
+    };
+  }).filter(carousel => carousel.products.length > 0); // No renderizar si no hay productos
+
   return (
     <div className="min-h-screen bg-skc-background font-sans text-gray-800 pb-20">
       <Header
@@ -240,6 +270,18 @@ function App() {
               onAddToCart={handleAddToCart}
               onViewDetails={setSelectedProduct}
             />
+
+            {/* Carruseles dinámicos por marca */}
+            {featuredBrandCarousels.map((carousel, index) => (
+              <ProductCarousel
+                key={`brand-carousel-${index}`}
+                title={`✨ Novedades en ${carousel.brandName}`}
+                products={carousel.products}
+                onAddToCart={handleAddToCart}
+                onViewDetails={setSelectedProduct}
+              />
+            ))}
+
             <ProductCarousel
               title="📦 ¡Volvieron!"
               products={restockedItems}
