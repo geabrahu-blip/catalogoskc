@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 
-export default function ProductCarousel({ title, products, onAddToCart, onViewDetails }) {
+export default function ProductCarousel({ title, products, onAddToCart, onViewDetails, brandName, onViewAll }) {
   const carouselRef = useRef(null);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
 
@@ -38,15 +38,25 @@ export default function ProductCarousel({ title, products, onAddToCart, onViewDe
   if (!products || products.length === 0) return null;
 
   return (
-    <div className="w-full my-6">
-      <h2 className="text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-skc-purple-dark to-skc-copper mb-4 pl-2 uppercase tracking-wide">
-        {title}
-      </h2>
+    <div className="w-full my-2 md:my-4">
+      <div className="flex items-center justify-between mb-2 pl-2 pr-4">
+        <h2 className="text-lg md:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-skc-purple-dark to-skc-copper uppercase tracking-wide">
+          {title}
+        </h2>
+        {brandName && onViewAll && (
+          <button
+            onClick={() => onViewAll(brandName)}
+            className="text-xs font-bold text-skc-purple-dark bg-skc-copper/10 hover:bg-skc-copper/20 px-3 py-1 rounded-full transition-colors"
+          >
+            Ver todos
+          </button>
+        )}
+      </div>
 
       {/* Contenedor del Carrusel */}
       <div
         ref={carouselRef}
-        className="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory hide-scrollbar"
+        className="flex overflow-x-auto gap-3 pb-2 snap-x snap-mandatory hide-scrollbar"
         onTouchStart={handleInteraction}
         onMouseDown={handleInteraction}
       >

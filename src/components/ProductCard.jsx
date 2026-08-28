@@ -21,11 +21,11 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
   const currentPrice = sellingPriceNum > 0 ? sellingPriceNum : priceBsNum;
 
   return (
-    <div className="bg-gradient-to-br from-skc-purple to-skc-purple-dark rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)] transition-all duration-300 flex flex-col h-full border border-white/10 relative p-3 mt-3">
+    <div className="bg-gradient-to-br from-skc-purple to-skc-purple-dark rounded-[1.2rem] shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)] transition-all duration-300 flex flex-col h-full border border-white/10 relative p-2 mt-2">
 
       {/* Badge de Oferta desplazado hacia arriba y con animación */}
       {hasDiscount && (
-        <div className="absolute -top-3 right-3 z-20 animate-pulse bg-red-500 text-white text-[11px] font-black px-3 py-1.5 rounded-full shadow-md tracking-wide">
+        <div className="absolute -top-2 right-2 z-20 animate-pulse bg-red-500 text-white text-[10px] font-black px-2 py-1 rounded-full shadow-md tracking-wide">
           -{discountPercentage}% OFERTA
         </div>
       )}
@@ -36,26 +36,26 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
         onClick={() => onViewDetails && onViewDetails(product)}
       >
         {/* Imagen con contenedor que simula el fondo de la imagen de referencia */}
-        <div className="relative w-full aspect-square rounded-2xl bg-transparent border border-white/20 overflow-hidden flex items-center justify-center mt-1">
+        <div className="relative w-full aspect-square rounded-xl bg-transparent border border-white/20 overflow-hidden flex items-center justify-center mt-0">
           <img
             src={imageUrl}
             alt={product.name}
-            className="w-full h-full object-cover rounded-2xl"
+            className="w-full h-full object-cover rounded-xl"
             loading="lazy"
           />
         </div>
 
-        <div className="p-2 pt-5 flex flex-col flex-grow">
+        <div className="p-1 pt-3 flex flex-col flex-grow">
           {/* Marca */}
-          <p className="text-[11px] font-bold text-[#D4AF37] mb-1 uppercase tracking-wider">{product.brand}</p>
+          <p className="text-[10px] font-bold text-[#D4AF37] mb-1 uppercase tracking-wider">{product.brand}</p>
 
           {/* Título */}
-          <h3 className="text-[14px] leading-tight font-bold text-white mb-3 flex-grow line-clamp-3 hover:text-gray-200 transition-colors">
+          <h3 className="text-[13px] leading-tight font-bold text-white mb-2 flex-grow line-clamp-2 hover:text-gray-200 transition-colors">
             {product.name}
           </h3>
 
           {/* Pastillas de Categoría / Presentación */}
-          <div className="flex flex-wrap gap-1.5 mb-4">
+          <div className="flex flex-wrap gap-1 mb-2">
             {product.presentation && (
               <span className="text-[10px] font-semibold text-white bg-white/10 border border-white/20 px-2.5 py-0.5 rounded-full">
                 {product.presentation}
@@ -71,21 +71,21 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
       </div>
 
       {/* Contenedor Inferior: Precio y Botón (No Clickable para Detalles) */}
-      <div className="px-2 pb-2 flex items-end justify-between mt-auto">
+      <div className="px-1 pb-1 flex items-end justify-between mt-auto">
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold text-gray-300 uppercase tracking-wider mb-0.5">Precio</span>
+            <span className="text-[9px] font-bold text-gray-300 uppercase tracking-wider mb-0.5">Precio</span>
             {hasDiscount ? (
               <>
-                <span className="text-[13px] text-gray-300 line-through decoration-gray-300 decoration-2 font-medium leading-none mb-1">
+                <span className="text-[11px] text-gray-300 line-through decoration-gray-300 decoration-2 font-medium leading-none mb-1">
                   Bs. {comparePriceNum.toFixed(2)}
                 </span>
-                <span className="text-[26px] font-black text-[#D4AF37] leading-none">
+                <span className="text-[20px] md:text-[22px] font-black text-[#D4AF37] leading-none">
                   Bs. {currentPrice.toFixed(2)}
                 </span>
               </>
             ) : (
               <>
-                <span className="text-[26px] font-black text-white leading-none mt-1">
+                <span className="text-[20px] md:text-[22px] font-black text-white leading-none mt-1">
                   Bs. {currentPrice.toFixed(2)}
                 </span>
               </>
@@ -97,10 +97,10 @@ export default function ProductCard({ product, onAddToCart, onViewDetails }) {
               e.stopPropagation(); // Evitar que el click en "Añadir al carrito" abra el modal
               onAddToCart(product, false);
             }}
-            className="bg-skc-copper hover:bg-opacity-90 text-white w-12 h-12 flex items-center justify-center rounded-2xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-copper focus:ring-opacity-50 shadow-md flex-shrink-0"
+            className="bg-skc-copper hover:bg-opacity-90 text-white w-10 h-10 flex items-center justify-center rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-skc-copper focus:ring-opacity-50 shadow-md flex-shrink-0"
             aria-label={`Añadir ${product.name} al carrito`}
           >
-            <FaCartPlus className="text-xl" />
+            <FaCartPlus className="text-lg" />
           </button>
         </div>
     </div>
