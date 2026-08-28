@@ -43,9 +43,10 @@ export default function ProductCarousel({ title, products, onAddToCart, onViewDe
         <h2 className="text-lg md:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-skc-purple-dark to-skc-copper uppercase tracking-wide">
           {title}
         </h2>
-        {brandName && onViewAll && (
+        {/* Renderizamos el botón "Ver todos" si existe onViewAll, pasando brandName si existe (para marcas) o null (para generales) */}
+        {onViewAll && (
           <button
-            onClick={() => onViewAll(brandName)}
+            onClick={() => onViewAll(brandName || null)}
             className="text-xs font-bold text-skc-purple-dark bg-skc-copper/10 hover:bg-skc-copper/20 px-3 py-1 rounded-full transition-colors"
           >
             Ver todos
