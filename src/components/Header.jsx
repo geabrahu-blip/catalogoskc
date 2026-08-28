@@ -21,8 +21,22 @@ export default function Header({
         {/* Top Row: Logo, Search, Cart */}
         <div className="flex items-center justify-between gap-3 mb-3">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <img src="/logo.png" alt="Victoria's Shop" className="h-10 w-10 rounded-full object-cover" />
+          <div
+            className="flex-shrink-0 flex items-center cursor-pointer transition-transform hover:scale-105 active:scale-95"
+            onClick={() => {
+              // Limpia filtros si hay callback
+              if (onCategorySelect) onCategorySelect('');
+              if (onBrandSelect) onBrandSelect('');
+              if (onSearchChange) {
+                // Truco para simular evento de cambio vacio
+                onSearchChange({ target: { value: '' } });
+              }
+              // Si necesitamos disparar algo más específico para resetToHome,
+              // actualmente el App.jsx reacciona al limpiar search/category/brand.
+            }}
+            title="Volver al inicio"
+          >
+            <img src="/logo.png" alt="Victoria's Shop" className="h-10 w-10 rounded-full object-cover border-2 border-transparent hover:border-skc-copper/50" />
           </div>
 
           {/* Search Bar */}

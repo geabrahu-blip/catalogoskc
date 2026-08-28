@@ -21,6 +21,7 @@ function App() {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [brands, setBrands] = useState([]);
   const [featuredBrands, setFeaturedBrands] = useState([]);
+  const [isViewingAllCatalog, setIsViewingAllCatalog] = useState(false);
 
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -157,20 +158,42 @@ function App() {
   // We'll manage search term here and reset visibleCount synchronously when it changes.
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
+    setIsViewingAllCatalog(false);
     setVisibleCount(20);
   };
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+    setIsViewingAllCatalog(false);
     setVisibleCount(20);
   };
 
   const handleBrandSelect = (brand) => {
     setSelectedBrand(brand);
+    setIsViewingAllCatalog(false);
+    setVisibleCount(20);
+  };
+
+  const handleViewAllCatalog = () => {
+    setSearchTerm('');
+    setSelectedCategory('');
+    setSelectedBrand('');
+    setIsViewingAllCatalog(true);
+    setVisibleCount(20);
+  };
+
+  const resetToHome = () => {
+    setSearchTerm('');
+    setSelectedCategory('');
+    setSelectedBrand('');
+    setIsViewingAllCatalog(false);
     setVisibleCount(20);
   };
 
   const filteredProducts = products.filter(product => {
+    // Si estamos en "ver todo el catálogo", no aplicamos filtros de marca, categoría o búsqueda.
+    if (isViewingAllCatalog) return true;
+
     // 1. Filter by brand
     if (selectedBrand && product.brand !== selectedBrand) {
       return false;
@@ -199,6 +222,11 @@ function App() {
     return nameMatch || brandMatch || categoryMatch;
   });
 
+  // Sort filteredProducts if viewing all catalog (newest to oldest)
+  if (isViewingAllCatalog) {
+    filteredProducts.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+  }
+
   const visibleProducts = filteredProducts.slice(0, visibleCount);
 
   const handleLoadMore = () => {
@@ -207,7 +235,7 @@ function App() {
 
   const cartItemCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
-  const isPureState = !searchTerm && !selectedCategory && !selectedBrand;
+  const isPureState = !searchTerm && !selectedCategory && !selectedBrand && !isViewingAllCatalog;
 
   const newArrivals = [...products]
     .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
@@ -261,6 +289,26 @@ function App() {
 
       <main className="container mx-auto px-4 py-8">
 
+        {/* Navigation / Back Bar when NOT in pure state */}
+        {!isPureState && !loading && (
+          <div className="mb-6 flex items-center justify-between bg-white/5 rounded-lg p-3 border border-white/10 shadow-sm backdrop-blur-sm">
+            <div className="flex items-center gap-2">
+              <span className="text-skc-purple-dark font-medium text-sm">
+                {isViewingAllCatalog && 'Viendo: Todo el catálogo'}
+                {selectedBrand && `Viendo marca: ${selectedBrand}`}
+                {selectedCategory && `Categoría: ${selectedCategory}`}
+                {searchTerm && `Resultados para: "${searchTerm}"`}
+              </span>
+            </div>
+            <button
+              onClick={resetToHome}
+              className="flex items-center gap-1.5 text-sm font-bold text-white bg-skc-copper/90 hover:bg-skc-copper px-4 py-1.5 rounded-full transition-colors shadow-sm"
+            >
+              <span>&larr;</span> Volver al inicio
+            </button>
+          </div>
+        )}
+
         {/* Carousels (Only on initial state) */}
         {isPureState && !loading && (
           <div className="mb-8 flex flex-col gap-2">
@@ -269,6 +317,7 @@ function App() {
               products={newArrivals}
               onAddToCart={handleAddToCart}
               onViewDetails={setSelectedProduct}
+              onViewAll={handleViewAllCatalog}
             />
 
             {/* Carruseles dinámicos por marca */}
@@ -293,42 +342,46 @@ function App() {
           </div>
         )}
 
-        {/* Product Grid */}
-        {loading ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-            {[...Array(10)].map((_, i) => (
-              <ProductSkeleton key={i} />
-            ))}
-          </div>
-        ) : filteredProducts.length > 0 ? (
+        {/* Product Grid (Only show when NOT in pure state, or loading) */}
+        {!isPureState && (
           <>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-              {visibleProducts.map(product => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onAddToCart={handleAddToCart}
-                  onViewDetails={setSelectedProduct}
-                />
-              ))}
-            </div>
+            {loading ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+                {[...Array(10)].map((_, i) => (
+                  <ProductSkeleton key={i} />
+                ))}
+              </div>
+            ) : filteredProducts.length > 0 ? (
+              <>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+                  {visibleProducts.map(product => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      onAddToCart={handleAddToCart}
+                      onViewDetails={setSelectedProduct}
+                    />
+                  ))}
+                </div>
 
-            {visibleCount < filteredProducts.length && (
-              <div className="mt-10 flex justify-center">
-                <button
-                  onClick={handleLoadMore}
-                  className="bg-gradient-to-r from-skc-purple to-skc-purple-dark border-2 border-white/20 text-white hover:opacity-90 font-bold py-3 px-8 rounded-full transition-opacity duration-300 shadow-sm"
-                >
-                  Ver más productos
-                </button>
+                {visibleCount < filteredProducts.length && (
+                  <div className="mt-10 flex justify-center">
+                    <button
+                      onClick={handleLoadMore}
+                      className="bg-gradient-to-r from-skc-purple to-skc-purple-dark border-2 border-white/20 text-white hover:opacity-90 font-bold py-3 px-8 rounded-full transition-opacity duration-300 shadow-sm"
+                    >
+                      Ver más productos
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-center py-20 text-gray-300 bg-gradient-to-br from-skc-purple to-skc-purple-dark rounded-xl shadow-sm border border-white/10">
+                <p className="text-xl mb-2 text-white">No encontramos productos.</p>
+                <p className="text-sm">Intenta buscar con otras palabras.</p>
               </div>
             )}
           </>
-        ) : (
-          <div className="text-center py-20 text-gray-300 bg-gradient-to-br from-skc-purple to-skc-purple-dark rounded-xl shadow-sm border border-white/10">
-            <p className="text-xl mb-2 text-white">No encontramos productos.</p>
-            <p className="text-sm">Intenta buscar con otras palabras.</p>
-          </div>
         )}
 
       </main>
