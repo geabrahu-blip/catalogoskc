@@ -277,6 +277,8 @@ function App() {
                 key={`brand-carousel-${index}`}
                 title={`✨ Novedades en ${carousel.brandName}`}
                 products={carousel.products}
+                brandName={carousel.brandName}
+                onViewAll={setSelectedBrand}
                 onAddToCart={handleAddToCart}
                 onViewDetails={setSelectedProduct}
               />

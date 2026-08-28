@@ -95,35 +95,6 @@ export default function Header({
           </div>
         </div>
 
-        {/* Middle Row: Brands Carousel */}
-        {brands && brands.length > 0 && (
-          <div className="flex overflow-x-auto pb-1 mb-2 hide-scrollbar -mx-4 px-4 gap-2">
-            <button
-              onClick={() => onBrandSelect('')}
-              className={`whitespace-nowrap px-3 py-1 text-xs rounded-full border transition-colors ${
-                selectedBrand === ''
-                  ? 'bg-skc-copper text-white border-skc-copper font-bold'
-                  : 'bg-transparent text-white border-white/50 hover:border-white'
-              }`}
-            >
-              Todas las Marcas
-            </button>
-            {brands.map((brand, idx) => (
-              <button
-                key={idx}
-                onClick={() => onBrandSelect(brand)}
-                className={`whitespace-nowrap px-3 py-1 text-xs rounded-full border transition-colors ${
-                  selectedBrand === brand
-                    ? 'bg-skc-copper text-white border-skc-copper font-bold'
-                    : 'bg-transparent text-white border-white/50 hover:border-white'
-                }`}
-              >
-                {brand}
-              </button>
-            ))}
-          </div>
-        )}
-
         {/* Bottom Row: Categories Carousel (Oculto temporalmente según solicitud) */}
         {/*
         {categories && categories.length > 0 && (
