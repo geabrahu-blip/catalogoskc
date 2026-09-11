@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 
 export default function Header({
@@ -15,6 +15,42 @@ export default function Header({
   searchResults = [],
   onProductSelect
 }) {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const searchContainerRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleSearchFocus = () => {
+    if (searchTerm) {
+      setShowDropdown(true);
+    }
+  };
+
+  const handleSearchChangeLocal = (e) => {
+    onSearchChange(e);
+    if (e.target.value) {
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      setShowDropdown(false);
+    }
+  };
+
   return (
     <header className="bg-gradient-to-r from-skc-purple to-skc-purple-dark text-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3">
@@ -40,7 +76,7 @@ export default function Header({
           </div>
 
           {/* Search Bar */}
-          <div className="flex-grow max-w-md relative">
+          <div className="flex-grow max-w-md relative" ref={searchContainerRef}>
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
               <FaSearch className="text-skc-copper text-sm" />
             </div>
@@ -49,11 +85,13 @@ export default function Header({
               placeholder="Buscar..."
               className="w-full pl-9 pr-3 py-1.5 rounded-full border-2 border-transparent shadow-inner focus:outline-none focus:border-skc-copper focus:ring-2 focus:ring-skc-copper/50 text-gray-800 bg-white text-sm relative z-10"
               value={searchTerm}
-              onChange={onSearchChange}
+              onChange={handleSearchChangeLocal}
+              onFocus={handleSearchFocus}
+              onKeyDown={handleKeyDown}
             />
 
             {/* Autocomplete Dropdown */}
-            {searchTerm && searchResults.length > 0 && (
+            {searchTerm && showDropdown && searchResults.length > 0 && (
               <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl overflow-hidden z-50 border border-gray-100 max-h-[60vh] overflow-y-auto">
                 {searchResults.map((product) => (
                   <div
@@ -85,7 +123,7 @@ export default function Header({
               </div>
             )}
 
-            {searchTerm && searchResults.length === 0 && (
+            {searchTerm && showDropdown && searchResults.length === 0 && (
               <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl z-50 border border-gray-100 p-4 text-center">
                 <p className="text-sm text-gray-500">No se encontraron productos.</p>
               </div>
